@@ -24,7 +24,9 @@ Codelab: Escribe tu primera app Flutter
 
 # Autores
 Jose Andres Henao Alzate
+
 Correo: andres.henao9@udea.edu.co
 
 Juan Carlos Medina Morales
+
 Correo: juanc.medina1@udea.edu.co
