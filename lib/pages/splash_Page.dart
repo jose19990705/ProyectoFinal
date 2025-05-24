@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:laboratorio_3/pages/intro.dart';
 import 'package:laboratorio_3/pages/repository/firebase_inicio_api.dart';
 import 'package:laboratorio_3/pages/sign_in_Page.dart';
 
@@ -29,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
           ),
           Center(
             child: Image(
-              image: AssetImage("assets/images/logo.jpg"),
+              image: AssetImage("assets/images/S.png"),
               width: 300,
               height: 300,
             ),
@@ -43,10 +44,10 @@ class _SplashPageState extends State<SplashPage> {
       var result = _firebaseApi.validateSesion();
       if(await result) { // si se cumple es porque no hay nadie logeado
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SignInPage()));
+            context, MaterialPageRoute(builder: (context) => Intro()));
       } else {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SignInPage()));
+            context, MaterialPageRoute(builder: (context) => Intro()));
       }
     });
   }
