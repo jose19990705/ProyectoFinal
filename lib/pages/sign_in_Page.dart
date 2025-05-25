@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:laboratorio_3/pages/repository/firebase_api_Registers.dart';
-import 'package:laboratorio_3/pages/sign_up_Page.dart';
+import 'package:laboratorio_3/pages/repository/firebase_api_Register_Tourist_And_shopkeeper.dart';
+import 'package:laboratorio_3/pages/sign_up_Shopkeeper_Page.dart';
+import 'package:laboratorio_3/pages/sign_up_Tourist_Page.dart';
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
@@ -9,10 +10,12 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+
+  final FirebaseApiRegisterTouristAndShopkeeper  _firebaseApi = FirebaseApiRegisterTouristAndShopkeeper();
   final _email = TextEditingController();
   final _password = TextEditingController();
   bool _oscuro = true;
-  final FirebaseApiRegisters _firebaseApi = FirebaseApiRegisters();
+ // final FirebaseApiRegisters _firebaseApi = FirebaseApiRegisters();
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +78,7 @@ class _SignInPageState extends State<SignInPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SignUpPage(),
+                        builder: (context) => const SignUpShopkeeperPage(),
                       ),
                     );
                   },

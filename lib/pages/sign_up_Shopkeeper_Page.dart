@@ -1,35 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:laboratorio_3/pages/repository/firebase_api_Registers.dart';
+import 'package:laboratorio_3/pages/repository/firebase_api_Register_Tourist_And_shopkeeper.dart';
 import 'package:laboratorio_3/pages/sign_in_Page.dart';
-import '../models/users.dart';
+import 'package:laboratorio_3/models/shopkeeper.dart';
 
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignUpShopkeeperPage extends StatefulWidget {
+  const SignUpShopkeeperPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignUpShopkeeperPage> createState() => _SignUpShopkeeperPageState();
 }
 
-enum type_reg {tourist,business}
-//enum ProductsService {}
-String? _selectedComida;
-String? _selectedLugar;
-final TextEditingController _serviciosController = TextEditingController();
+class _SignUpShopkeeperPageState extends State<SignUpShopkeeperPage> {
 
-final List<String> comidas = ['Comida china', 'Comida italiana', 'Comida colombiana'];
-final List<String> lugares = ['Discotecas', 'Eco parques', 'Museos'];
 
-class _SignUpPageState extends State<SignUpPage> {
-  type_reg? _typeReg = type_reg.tourist;
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _servicesController = TextEditingController();
 
   final _name = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
   final _RegPassword = TextEditingController();
+  final _firebaseApiRegisterTurista = FirebaseApiRegisterTouristAndShopkeeper();
 
-  final FirebaseApiRegisters _firebaseApi = FirebaseApiRegisters();
+  //final FirebaseApiRegisterTur _firebaseApi = FirebaseApiRegisters();
   bool _isRegPasswordoscuro = true;
   bool _oscuro = true;
 
@@ -128,32 +123,29 @@ class _SignUpPageState extends State<SignUpPage> {
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 16),
-                const Text("Seleccione tipo de registro"),
-                Row(
+                Column(
                   children: [
-                    Expanded(
-                      child: RadioListTile(
-                        title: const Text("Turista"),
-                        value: type_reg.tourist,
-                        groupValue: _typeReg,
-                        onChanged: (type_reg? value) {
-                          setState(() {
-                            _typeReg = value;
-                          });
-                        },
+                    const SizedBox(height: 16),
+                    const Text(
+                        "¿Cuéntanos una breve descripción de tu negocio?"),
+                    const SizedBox(height: 8),
+                    TextField(
+                      controller: _descriptionController,
+                      maxLines: 3,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Ej. Restaurante especializado en comida italiana...',
                       ),
                     ),
-
-                    Expanded(
-                      child: RadioListTile(
-                        title: const Text("Negocio"),
-                        value: type_reg.business,
-                        groupValue: _typeReg,
-                        onChanged: (type_reg? value) {
-                          setState(() {
-                            _typeReg = value;
-                          });
-                        },
+                    const SizedBox(height: 24),
+                    const Text("¿Qué servicios ofrece?"),
+                    const SizedBox(height: 8),
+                    TextField(
+                      controller: _servicesController,
+                      maxLines: 2,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Ej. Domicilios, Eventos, temáticas',
                       ),
                     ),
                   ],
@@ -184,19 +176,24 @@ class _SignUpPageState extends State<SignUpPage> {
   void _onRegisterButtonClicked() {
     if (_email.text.isEmpty ||
         _password.text.isEmpty ||
-        _RegPassword.text.isEmpty) {
+        _RegPassword.text.isEmpty ||
+        _descriptionController.text.isEmpty ||
+        _servicesController.text.isEmpty) {
       showMesg("Todos los campos deben estar diligenciados");
     } else if (_password.text != _RegPassword.text) {
       showMesg("Las contraseñas deben ser iguales");
     } else if (_password.text.length < 6) {
       showMesg("La contraseña no puede tener menos de 6 caracteres");
     } else {
-      creatUser(_email.text, _password.text);
+      creatUserNegociante(_email.text, _password.text, _descriptionController.text,
+          _servicesController.text);
     }
   }
 
-  void creatUser(String email, String password) async {
-    var result = await _firebaseApi.createUser(email, password);
+
+  void creatUserNegociante(String email, String password, String descrption,
+      String Services) async {
+    var result = await _firebaseApiRegisterTurista.createUser(email, password);
     if (result == 'weak-password') {
       showMesg("La contraseña debe tener al menos 6 dígitos");
     } else if (result == 'email-already-in-use') {
@@ -206,22 +203,22 @@ class _SignUpPageState extends State<SignUpPage> {
     } else if (result == 'network-request-failed') {
       showMesg('Revise su conexión a internet');
     } else {
-      var genre= (_typeReg==type_reg.tourist)? "Turista":"Negocio";
-      var _user = User(result, _name.text, _email.text, genre, _bornDate, "");
+      var _shokeeper = Shopkeeper(result, _name.text, _email.text, _bornDate,
+          _descriptionController.text, _servicesController.text);
 
-      creatUserInDB(_user);
+      creatUserInDB(_shokeeper);
     }
   }
 
-  Future<void> creatUserInDB(User user) async {
-    var result = await _firebaseApi.creatUserIDB(user);
+  Future<void> creatUserInDB(Shopkeeper user) async {
+    var result = await _firebaseApiRegisterTurista.creatShopkeeperIDB(user);
 
     if (result == 'network-request-failed') {
       showMesg('Revise su conexión a internet');
     } else {
       showMesg("Usuario registrado exitosamente");
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignInPage()));
-
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => SignInPage()));
     }
   }
 
@@ -240,18 +237,30 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void _showSelectedDate() async {
-    final DateTime? newdate = await showDatePicker(
+    final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1925, 1),
       lastDate: DateTime.now(),
       helpText: "Fecha de nacimiento",
     );
-    if (newdate != null) {
-      setState(() {
-        _bornDate = newdate;
-        buttonMsg = "Fecha de nacimiento: ${_dateConverter(newdate)}";
-      });
+
+    if (pickedDate != null) {
+      final now = DateTime.now();
+      final age = now.year - pickedDate.year -
+          ((now.month < pickedDate.month ||
+              (now.month == pickedDate.month && now.day < pickedDate.day))
+              ? 1
+              : 0);
+
+      if (age >= 18) {
+        setState(() {
+          _bornDate = pickedDate;
+          buttonMsg = "Fecha de nacimiento: ${_dateConverter(pickedDate)}";
+        });
+      } else {
+        showMesg("Debes ser mayor de edad para registrarte");
+      }
     }
   }
 

@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '/models/users.dart' as UserApp;
+import 'package:laboratorio_3/models/shopkeeper.dart';
+import '../../models/tourist.dart' as TouristApp;
+import '../../models/shopkeeper.dart' as ShopkeeperApp;
 
-class FirebaseApiRegisters {
+class FirebaseApiRegisterTouristAndShopkeeper {
   Future<String?> createUser(String emailAddress, String password) async {
     try {
       final credential = await FirebaseAuth.instance
@@ -51,10 +53,10 @@ class FirebaseApiRegisters {
     return await FirebaseAuth.instance.currentUser == null;
   }
 
-  Future<String> creatUserIDB(UserApp.User user) async {
+  Future<String> creatTouristIDB(TouristApp.Tourist user) async {
     try {
       var db = FirebaseFirestore.instance;
-      final document = await db.collection('users').doc(user.uid).set(
+      final document = await db.collection('Turistas').doc(user.uid).set(
           user.tojson());
       return user.uid;
     } on FirebaseException catch (e) {
@@ -62,4 +64,22 @@ class FirebaseApiRegisters {
       return e.code;
     }
   }
+
+  Future<String> creatShopkeeperIDB(ShopkeeperApp.Shopkeeper user) async {
+    try {
+      var db = FirebaseFirestore.instance;
+      final document = await db.collection('Negociante').doc(user.uid).set(
+          user.tojson());
+      return user.uid;
+    } on FirebaseException catch (e) {
+      print("FirebaseExcepcion ${e.code}");
+      return e.code;
+    }
+  }
+
+
+
+
+
 }
+
