@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:laboratorio_3/pages/admin_reegister.dart';
 import 'package:laboratorio_3/pages/recovery_password_Page.dart';
-import 'package:laboratorio_3/pages/repository/firebase_inicio_api.dart' show FirebaseApi;
+import 'package:laboratorio_3/pages/repository/firebase_api.dart' show FirebaseApi;
 import 'package:laboratorio_3/pages/sign_up_Page.dart';
 
 import 'home_Navigation_Bar_Page.dart';

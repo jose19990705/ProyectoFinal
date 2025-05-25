@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:laboratorio_3/pages/admin_r_confirmado.dart';
-import 'package:laboratorio_3/pages/repository/firebase_inicio_api.dart';
+import 'package:laboratorio_3/pages/repository/firebase_api.dart';
 
 import 'home_Navigation_Bar_Page.dart';
 

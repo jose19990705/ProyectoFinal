@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:laboratorio_3/pages/models/useradmin.dart';
-import 'package:laboratorio_3/pages/repository/firebase_inicio_api.dart';
+import 'package:laboratorio_3/pages/repository/firebase_api.dart';
 
 class AdminRConfirmado extends StatefulWidget {
   const AdminRConfirmado({super.key});
@@ -199,12 +199,12 @@ class _AdminRConfirmadoState extends State<AdminRConfirmado> {
     } else{
       var genre = (_genre == Genre.male) ? "Masculino":"Femenino";
       var _user = UserAdmin(result, _name.text, _email.text, _genre, _bornDate, "");
-      createUserInDB(_user as User);
+      createUserInDB(_user as UserAdmin);
 
     }
   } // mensajes de respuesta a todos los errores que pueden surgir.
 
-  void createUserInDB(User user) async{
+  void createUserInDB(UserAdmin user) async{
     var result = await _firebaseApi.createUserInDB(user);
     if(result == 'network-request-failed'){
       showMsg('Revise su conexion a internet');
