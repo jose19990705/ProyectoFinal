@@ -204,7 +204,7 @@ class _SignInPageState extends State<SignInPage> {
       showMsg("Debe digitar todos los campos");
     }else{
       var result = await _firebaseApi.singInUser(_email.text, _password.text);
-      if (result == 'invalid_credentiall') {
+      if (result == 'invalid-credential') {
         showMsg("Correo electronico o contraseña icorrecta");
       } else if (result == 'invalid-email') {
         showMsg("El correo electronico esta mal escrito");
