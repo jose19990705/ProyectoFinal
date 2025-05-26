@@ -35,141 +35,207 @@ class _SignUpShopkeeperPageState extends State<SignUpShopkeeperPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Image(
-                  image: AssetImage('assets/images/logo.jpg'),
-                  width: 150,
-                  height: 150,
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: _name,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Nombre",
-                    prefixIcon: Icon(Icons.person),
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: _email,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Correo electrónico",
-                    prefixIcon: Icon(Icons.mail),
-                  ),
-                  keyboardType: TextInputType.name,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Debe ingresar un correo electrónico.";
-                    } else {
-                      if (!value!.isvalidEmail()) {
-                        return "El correo electrónico no es válido.";
-                      }
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16),
-                TextFormField(
-                  controller: _password,
-                  obscureText: _oscuro,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _oscuro ? Icons.visibility_off : Icons.visibility,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _oscuro = !_oscuro;
-                        });
-                      },
-                    ),
-                    labelText: "Password",
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                SizedBox(height: 16),
-                TextFormField(
-                  controller: _RegPassword,
-                  obscureText: _isRegPasswordoscuro,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _isRegPasswordoscuro
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isRegPasswordoscuro = !_isRegPasswordoscuro;
-                        });
-                      },
-                    ),
-                    labelText: " repita la contraseña",
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                const SizedBox(height: 16),
-                Column(
+      body: Stack(
+        children: [
+          Positioned.fill(//imagen de fondo
+            child: Image.asset(
+              'assets/images/R_E.png',
+              fit: BoxFit.cover, //para ajustar la imagen
+            ),
+          ), //Fondo
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 16),
-                    const Text(
-                        "¿Cuéntanos una breve descripción de tu negocio?"),
-                    const SizedBox(height: 8),
-                    TextField(
-                      controller: _descriptionController,
-                      maxLines: 3,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Ej. Restaurante especializado en comida italiana...',
-                      ),
+
+                    const Image(
+                      image: AssetImage('assets/images/MEDEX.png'),
+                      width: 500,
+                      height: 250,
                     ),
-                    const SizedBox(height: 24),
-                    const Text("¿Qué servicios ofrece?"),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 1),
                     TextField(
-                      controller: _servicesController,
-                      maxLines: 2,
+                      controller: _name,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: 'Ej. Domicilios, Eventos, temáticas',
+                        labelText: "Nombre",
+                        prefixIcon: Icon(Icons.person,color: Colors.white,),
+                        labelStyle: const TextStyle(color: Colors.white),
+                        enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white)
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white,width: 2.0)
+                        )
+
                       ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      style: const TextStyle(color: Colors.white),
+                      controller: _email,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Correo electrónico",
+                        prefixIcon: Icon(Icons.mail,color: Colors.white,),
+                        labelStyle: const TextStyle(color: Colors.white),
+                        enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white)
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white,width: 2.0)
+                        )
+
+                      ),
+                      keyboardType: TextInputType.name,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Debe ingresar un correo electrónico.";
+                        } else {
+                          if (!value!.isvalidEmail()) {
+                            return "El correo electrónico no es válido.";
+                          }
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 16),
+                    TextFormField(
+                      style: const TextStyle(color: Colors.white),
+                      controller: _password,
+                      obscureText: _oscuro,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.lock,color: Colors.white,),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _oscuro ? Icons.visibility_off : Icons.visibility,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _oscuro = !_oscuro;
+                            });
+                          },
+                        ),
+                        labelText: "Password",
+                        labelStyle: const TextStyle(color: Colors.white),
+                        enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white)
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white,width: 2.0)
+                        )
+
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    SizedBox(height: 16),
+                    TextFormField(
+                      style: const TextStyle(color: Colors.white),
+                      controller: _RegPassword,
+                      obscureText: _isRegPasswordoscuro,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.lock,color: Colors.white,),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isRegPasswordoscuro
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isRegPasswordoscuro = !_isRegPasswordoscuro;
+                            });
+                          },
+                        ),
+                        labelText: " repita la contraseña",
+                        labelStyle: const TextStyle(color: Colors.white),
+                        enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white)
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white,width: 2.0)
+                        )
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(height: 16),
+                    Column(
+                      children: [
+                        const SizedBox(height: 16),
+                        const Text(
+                            "¿Cuéntanos una breve descripción de tu negocio?",
+                            style: TextStyle(color: Colors.white),
+                        ),
+                        const SizedBox(height: 8),
+                        TextField(
+                          controller: _descriptionController,
+                          maxLines: 3,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Ej. Restaurante especializado en comida italiana...',
+                            hintStyle: const TextStyle(color: Colors.white70), // hint blanco semiopaco
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white), // borde blanco cuando no está enfocado
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white, width: 2), // borde blanco más grueso al enfocar
+                            ),
+
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        const Text("¿Qué servicios ofrece?",style: TextStyle(color: Colors.white),),
+                        const SizedBox(height: 8),
+                        TextField(
+                          controller: _servicesController,
+                          maxLines: 2,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Ej. Domicilios, Eventos, temáticas',
+                            hintStyle: const TextStyle(color: Colors.white70), // hint blanco semiopaco
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white), // borde blanco cuando no está enfocado
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white, width: 2), // borde blanco más grueso al enfocar
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () {
+                        _showSelectedDate();
+                      },
+                      child: Text(buttonMsg),
+                    ),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () {
+                        _onRegisterButtonClicked();
+                      },
+                      child: const Text("Registrar"),
                     ),
                   ],
                 ),
-
-                SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    _showSelectedDate();
-                  },
-                  child: Text(buttonMsg),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    _onRegisterButtonClicked();
-                  },
-                  child: const Text("Registrar"),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
+
     );
   }
 

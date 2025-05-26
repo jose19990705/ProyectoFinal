@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class MapPage extends StatefulWidget {
+  const MapPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MapPage> createState() => _MapPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Positioned.fill(//imagen de fondo
             child: Image.asset(
-              'assets/images/C_p.png',
+              'assets/images/C_m.png',
               fit: BoxFit.cover, //para ajustar la imagen
             ),
           ), //Fondo

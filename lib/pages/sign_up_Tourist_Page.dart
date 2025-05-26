@@ -66,153 +66,164 @@ class _SignUpTouristPageState extends State<SignUpTouristPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Image(
-                  image: AssetImage('assets/images/logo.jpg'),
-                  width: 150,
-                  height: 150,
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: _name,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Nombre",
-                    prefixIcon: Icon(Icons.person),
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: _email,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Correo electrónico",
-                    prefixIcon: Icon(Icons.mail),
-                  ),
-                  keyboardType: TextInputType.name,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Debe ingresar un correo electrónico.";
-                    } else {
-                      if (!value!.isvalidEmail()) {
-                        return "El correo electrónico no es válido.";
-                      }
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16),
-                TextFormField(
-                  controller: _password,
-                  obscureText: _oscuro,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _oscuro ? Icons.visibility_off : Icons.visibility,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _oscuro = !_oscuro;
-                        });
-                      },
-                    ),
-                    labelText: "Password",
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                SizedBox(height: 16),
-                TextFormField(
-                  controller: _RegPassword,
-                  obscureText: _isRegPasswordoscuro,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _isRegPasswordoscuro
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isRegPasswordoscuro = !_isRegPasswordoscuro;
-                        });
-                      },
-                    ),
-                    labelText: " repita la contraseña",
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                const SizedBox(height: 16),
-               Column(
-                 children: [
-                   const Text("Hablanos sobre ti!!"),
-                   const SizedBox(height: 16,),
-                   const Text("¿Qué comida es tu favorita?"),
-                   const SizedBox(height: 16,),
-                   Column(
-                     children: _food.map((comida) {
-                       return CheckboxListTile(
-                         title: Text(comida),
-                         value: _comidasSeleccionadas[comida],
-                         onChanged: (bool? value) {
-                           setState(() {
-                             _comidasSeleccionadas[comida] = value!;
-                           });
-                         },
-                       );
-                     }).toList(),
-                   ),
-                   const SizedBox(height: 16,),
-                   const Text("¿Qué tipos de lugares te gustan?"),
-                   const SizedBox(height: 16,),
-
-                   Column(
-                     children: _places.map((lugar) {
-                       return CheckboxListTile(
-                         title: Text(lugar),
-                         value: _lugaresSeleccionados[lugar],
-                         onChanged: (bool? value) {
-                           setState(() {
-                             _lugaresSeleccionados[lugar] = value!;
-                           });
-                         },
-                       );
-                     }).toList(),
-                   ),
-
-                 ],
-               ),
-
-                SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    _showSelectedDate();
-                  },
-                  child: Text(buttonMsg),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    _onRegisterButtonClicked();
-                  },
-                  child: const Text("Registrar"),
-                ),
-              ],
+      body: Stack(
+        children: [
+          Positioned.fill(//imagen de fondo
+            child: Image.asset(
+              'assets/images/R_T.png',
+              fit: BoxFit.cover, //para ajustar la imagen
             ),
           ),
-        ),
-      ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Image(
+                      image: AssetImage('assets/images/MEDEX.png'),
+                      width: 500,
+                      height: 250,
+                    ),
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: _name,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Nombre",
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _email,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Correo electrónico",
+                        prefixIcon: Icon(Icons.mail),
+                      ),
+                      keyboardType: TextInputType.name,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Debe ingresar un correo electrónico.";
+                        } else {
+                          if (!value!.isvalidEmail()) {
+                            return "El correo electrónico no es válido.";
+                          }
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 16),
+                    TextFormField(
+                      controller: _password,
+                      obscureText: _oscuro,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.lock),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _oscuro ? Icons.visibility_off : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _oscuro = !_oscuro;
+                            });
+                          },
+                        ),
+                        labelText: "Password",
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    SizedBox(height: 16),
+                    TextFormField(
+                      controller: _RegPassword,
+                      obscureText: _isRegPasswordoscuro,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.lock),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isRegPasswordoscuro
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isRegPasswordoscuro = !_isRegPasswordoscuro;
+                            });
+                          },
+                        ),
+                        labelText: " repita la contraseña",
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(height: 16),
+                    Column(
+                      children: [
+                        const Text("Hablanos sobre ti!!"),
+                        const SizedBox(height: 16,),
+                        const Text("¿Qué comida es tu favorita?"),
+                        const SizedBox(height: 16,),
+                        Column(
+                          children: _food.map((comida) {
+                            return CheckboxListTile(
+                              title: Text(comida),
+                              value: _comidasSeleccionadas[comida],
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _comidasSeleccionadas[comida] = value!;
+                                });
+                              },
+                            );
+                          }).toList(),
+                        ),
+                        const SizedBox(height: 16,),
+                        const Text("¿Qué tipos de lugares te gustan?"),
+                        const SizedBox(height: 16,),
+
+                        Column(
+                          children: _places.map((lugar) {
+                            return CheckboxListTile(
+                              title: Text(lugar),
+                              value: _lugaresSeleccionados[lugar],
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _lugaresSeleccionados[lugar] = value!;
+                                });
+                              },
+                            );
+                          }).toList(),
+                        ),
+
+                      ],
+                    ),
+
+                    SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () {
+                        _showSelectedDate();
+                      },
+                      child: Text(buttonMsg),
+                    ),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () {
+                        _onRegisterButtonClicked();
+                      },
+                      child: const Text("Registrar"),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      )
+
     );
   }
 

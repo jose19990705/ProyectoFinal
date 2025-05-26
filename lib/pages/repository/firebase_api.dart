@@ -11,6 +11,7 @@ class FirebaseApi{
           .createUserWithEmailAndPassword(
         email: emailAddress,
         password: password,
+
       );
       return credential.user?.uid;
     } on FirebaseAuthException catch (e) { // error por coponente de autenticacion
@@ -46,18 +47,19 @@ class FirebaseApi{
 
   } // para recuperar la contraseña
 
-  Future <bool> validateSesion() async{
-    return await FirebaseAuth.instance.currentUser != null;
+  Future <bool> validateSession() async{
+    return await FirebaseAuth.instance.currentUser == null;
   }// para validar que hay alguien logeado
 
   Future<String> createUserInDB(UserApp.UserAdmin user) async{
     try {
       var db = FirebaseFirestore.instance; // en la isntancia se coloca la informacion
-      final document = await db.collection('users').doc(user.uid).set(user.toJson());
+      final document = await db.collection('Administradores').doc(user.uid).set(user.toJson());
 
       return user.uid;
-    } on FirebaseException catch (e) {
+    } on FirebaseException catch (e, stack) {
       print ("FirebaseExeption ${e.code}");// mensaje de error para los desarrolladores
+      print ("Stack: $stack");
       return e.code;
     }
 

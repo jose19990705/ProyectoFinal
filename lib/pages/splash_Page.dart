@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:laboratorio_3/pages/admin_r_confirmado.dart';
+import 'package:laboratorio_3/pages/home_Navigation_Bar_Page.dart';
 import 'package:laboratorio_3/pages/intro.dart';
 import 'package:laboratorio_3/pages/repository/firebase_api.dart';
 import 'package:laboratorio_3/pages/sign_in_Page.dart';
+import 'package:laboratorio_3/pages/sign_up_Tourist_Page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -41,13 +44,13 @@ class _SplashPageState extends State<SplashPage> {
   }
   Future<void> _closeSplash() async{
     Future.delayed(const Duration(seconds: 2),() async{
-      var result = _firebaseApi.validateSesion();
+      var result = _firebaseApi.validateSession();
       if(await result) { // si se cumple es porque no hay nadie logeado
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Intro()));
       } else {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Intro()));
+            context, MaterialPageRoute(builder: (context) => HomeNavigationBarPage()));
       }
     });
   }

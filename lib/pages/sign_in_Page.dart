@@ -4,6 +4,8 @@ import 'package:laboratorio_3/pages/admin_reegister.dart';
 import 'package:laboratorio_3/pages/recovery_password_Page.dart';
 import 'package:laboratorio_3/pages/repository/firebase_api.dart' show FirebaseApi;
 import 'package:laboratorio_3/pages/sign_up_Page.dart';
+import 'package:laboratorio_3/pages/sign_up_Shopkeeper_Page.dart';
+import 'package:laboratorio_3/pages/sign_up_Tourist_Page.dart';
 
 import 'home_Navigation_Bar_Page.dart';
 
@@ -58,10 +60,10 @@ class _SignInPageState extends State<SignInPage> {
                           });
                         }
                       },
-                        dropdownMenuEntries: <DropdownMenuEntry<Color>>[
-                          DropdownMenuEntry(value: Colors.amber, label: 'Turista'),
-                          DropdownMenuEntry(value: Colors.blue, label: 'Empresa'),
-                          DropdownMenuEntry(value: Colors.red, label: 'Administrador'),
+                        dropdownMenuEntries: <DropdownMenuEntry<String>>[
+                          DropdownMenuEntry(value: 'Turista', label: 'Turista'),
+                          DropdownMenuEntry(value: 'Empresa', label: 'Empresa'),
+                          DropdownMenuEntry(value: 'Administrador', label: 'Administrador'),
                         ],
                       textStyle: const TextStyle(color: Colors.white),
                       inputDecorationTheme: const InputDecorationTheme(
@@ -141,12 +143,29 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                       onPressed: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AdminReegister(),
-                          ),
-                        );
+                        switch(_usertype){
+                          case 'Turista':
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SignUpTouristPage(),
+                              ),
+                            );
+                          case 'Empresa':
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SignUpShopkeeperPage(),
+                              ),
+                            );
+                          case 'Administrador':
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AdminReegister(),
+                              ),
+                            );
+                        }
                       },
                       child: const Text("Registrarse"),
                     ), // Registrarse

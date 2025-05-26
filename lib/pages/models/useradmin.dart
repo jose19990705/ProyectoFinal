@@ -5,33 +5,18 @@ class UserAdmin{
   var _emai;
   var _genre;
   var _bornDate;
+  var _cellphone;
   var _urlPicture;
 
+
   UserAdmin(this._uid, this._name, this._emai, this._genre, this._bornDate,
-      this._urlPicture);
+      this._cellphone, this._urlPicture);
 
-  get urlPicture => _urlPicture;
 
-  set urlPicture(value) {
-    _urlPicture = value;
-  }
+  get uid => _uid;
 
-  get bornDate => _bornDate;
-
-  set bornDate(value) {
-    _bornDate = value;
-  }
-
-  get genre => _genre;
-
-  set genre(value) {
-    _genre = value;
-  }
-
-  get emai => _emai;
-
-  set emai(value) {
-    _emai = value;
+  set uid(value) {
+    _uid = value;
   }
 
   get name => _name;
@@ -40,18 +25,42 @@ class UserAdmin{
     _name = value;
   }
 
-  get uid => _uid;
+  get emai => _emai;
 
-  set uid(value) {
-    _uid = value;
+  set emai(value) {
+    _emai = value;
   }
 
+  get genre => _genre;
+
+  set genre(value) {
+    _genre = value;
+  }
+
+  get bornDate => _bornDate;
+
+  set bornDate(value) {
+    _bornDate = value;
+  }
+
+  get cellphone => _cellphone;
+
+  set cellphone(value) {
+    _cellphone = value;
+  }
+
+  get urlPicture => _urlPicture;
+
+  set urlPicture(value) {
+    _urlPicture = value;
+  }
   Map<String, dynamic> toJson() =>{
     'uid': _uid,
     'name': _name,
     'email': _emai,
     'genre': _genre,
     'bornDate': _bornDate,
+    'cellphone': _cellphone,
     'urlPicture': _urlPicture,
   };
   // nos permite convertir un Json en un objento
@@ -61,6 +70,6 @@ class UserAdmin{
         _emai = json[ 'email'],
         _genre = json[ 'genre'],
         _bornDate = json[ 'bornDate'],
+        _cellphone = json[ 'cellphone'],
         _urlPicture = json[ 'urlPicture'];
-
 }
