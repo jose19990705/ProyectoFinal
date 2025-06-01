@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewEventPage extends StatefulWidget {
   const NewEventPage({super.key});
@@ -8,8 +10,307 @@ class NewEventPage extends StatefulWidget {
 }
 
 class _NewEventPageState extends State<NewEventPage> {
+  final _id = TextEditingController();
+  final _organizador = TextEditingController();
+  final _evento = TextEditingController();
+  var _categoria = null;
+  final _horainicial = TextEditingController();
+  final _horafinal = TextEditingController();
+  final _costo = TextEditingController();
+  final _urlimage = TextEditingController();
+  final _ubicacion = TextEditingController();
+  final TextEditingController _descripcion = TextEditingController();
+  final _enlaceweb = TextEditingController();
+  final _edades = TextEditingController();
+  String buttonMsginit = "Fecha de inicio";
+  DateTime _initialDate = DateTime.now();
+  String buttonMsgfinal = "Fecha de terminación";
+  DateTime _finalDate = DateTime.now();
+  String buttonMsg = "Fecha de nacimiento";
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(title: const Text("Nuevo Evento")),
+      body: Stack(
+        children: [
+          Positioned.fill(//imagen de fondo
+            child: Image.asset(
+              'assets/images/R_Ev.png',
+              fit: BoxFit.cover, //para ajustar la imagen
+            ),
+          ), //Fondo
+          Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(color: Colors.transparent),
+                        height: 170,
+                        child: Stack(
+                          children: [
+                            Image(image: AssetImage("assets/images/MEDEX.png"), width: 200, height: 200,),
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: IconButton(
+                                  alignment: Alignment.bottomLeft,
+                                  onPressed: null,
+                                  icon: const Icon(Icons.camera_alt, color: Colors.white,)
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 16,), // espacio entre widgets
+                      TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        controller: _organizador,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Organizador",
+                            prefixIcon: Icon(Icons.person,color: Colors.white,),
+                            labelStyle: const TextStyle(color: Colors.white),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white,width: 2.0)
+                            )
+
+                        ),
+                        keyboardType: TextInputType.name,
+                      ), // organizador
+                      SizedBox(height: 16,), // espacio entre widgets
+                      TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        controller: _evento,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Evento",
+                            prefixIcon: Icon(Icons.star,color: Colors.white,),
+                            labelStyle: const TextStyle(color: Colors.white),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white,width: 2.0)
+                            )
+
+                        ),
+                        keyboardType: TextInputType.name,
+                      ),// Evento
+                      SizedBox(height: 16,), // espacio entre widgets
+                      DropdownMenu(
+                        label: const Text('Seeleccione una categoria'),
+                        helperText: 'Seleccione el tipo de categoria a la que pertenece el evento',
+                        width: 500,
+                        enableSearch: false,
+                        onSelected: (login){
+                          if(login != null){
+                            setState(() {
+                              _categoria = login;
+                            });
+                          }
+                        },
+                        dropdownMenuEntries: <DropdownMenuEntry<String>>[
+                          DropdownMenuEntry(value: 'Culturales', label: 'Culturales'),
+                          DropdownMenuEntry(value: 'Deportivo', label: 'Deportivo'),
+                          DropdownMenuEntry(value: 'Educativos', label: 'Educativos'),
+                          DropdownMenuEntry(value: 'Corporativos', label: 'Corporativos'),
+                          DropdownMenuEntry(value: 'Comunitarios', label: 'Comunitarios'),
+                          DropdownMenuEntry(value: 'Educativos', label: 'Educativos'),
+                          DropdownMenuEntry(value: 'Religiosos', label: 'Religiosos'),
+                          DropdownMenuEntry(value: 'Políticos', label: 'Políticos'),
+                          DropdownMenuEntry(value: 'Entretenimiento', label: 'Entretenimiento'),
+                        ],
+                        textStyle: const TextStyle(color: Colors.white),
+                        inputDecorationTheme: const InputDecorationTheme(
+                            labelStyle: TextStyle(color: Colors.white),
+                            helperStyle: TextStyle(color: Colors.white),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            )
+                        ),
+                      ), // Selección de categoria
+                      SizedBox(height: 16,), // espacio entre widgets
+                      TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        controller: _horainicial,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Hora inicial",
+                            prefixIcon: Icon(Icons.watch_later_outlined,color: Colors.white,),
+                            labelStyle: const TextStyle(color: Colors.white),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white,width: 2.0)
+                            )
+
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),// Hora de inicio
+                      SizedBox(height: 16,), // espacio entre widgets
+                      TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        controller: _horafinal,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Hora final",
+                            prefixIcon: Icon(Icons.watch_later_outlined,color: Colors.white,),
+                            labelStyle: const TextStyle(color: Colors.white),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white,width: 2.0)
+                            )
+
+                        ),
+                        keyboardType: TextInputType.number,
+                      ), // Hora final
+                      SizedBox(height: 16,), // espacio entre widgets
+                      TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        controller: _costo,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Costo relativo",
+                            prefixIcon: Icon(Icons.money,color: Colors.white,),
+                            labelStyle: const TextStyle(color: Colors.white),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white,width: 2.0)
+                            )
+
+                        ), //
+                        keyboardType: TextInputType.number,
+                      ), //Costo
+                      SizedBox(height: 16,), // espacio entre widgets
+                      TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        controller: _urlimage,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "URL de la imagen del evento",
+                            prefixIcon: Icon(Icons.image,color: Colors.white,),
+                            labelStyle: const TextStyle(color: Colors.white),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white,width: 2.0)
+                            )
+
+                        ),
+                        keyboardType: TextInputType.text,
+                      ), // URL de la imagen
+                      SizedBox(height: 16,), // espacio entre widgets
+                      TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        controller: _ubicacion,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Ubicación del evento",
+                            prefixIcon: Icon(Icons.map,color: Colors.white,),
+                            labelStyle: const TextStyle(color: Colors.white),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white,width: 2.0)
+                            )
+
+                        ),
+                        keyboardType: TextInputType.text,
+                      ), // Ubicacion
+                      SizedBox(height: 16,), // Espacio entre widgets
+                      const Text("Descripción del evento",style: TextStyle(color: Colors.white),),
+                      const SizedBox(height: 8),
+                      TextField(
+                        controller: _descripcion,
+                        maxLines: 5,
+                        style: TextStyle(color: Colors.white),
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Descripción del evento',
+                          hintStyle: const TextStyle(color: Colors.white70), // hint blanco semiopaco
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white), // borde blanco cuando no está enfocado
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white, width: 2), // borde blanco más grueso al enfocar
+                          ),
+                        ),
+                      ), // Descripción
+                      SizedBox(height: 16,), // espacio entre widgets
+                      TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        controller: _enlaceweb,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Enlace de la página Web",
+                            prefixIcon: Icon(Icons.web,color: Colors.white,),
+                            labelStyle: const TextStyle(color: Colors.white),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white,width: 2.0)
+                            )
+
+                        ),
+                        keyboardType: TextInputType.url,
+                      ),
+                      SizedBox(height: 16,), // espacio entre widgets
+                      ElevatedButton(
+                        onPressed: () {
+                          _showSelectedDate();
+                        },
+                        child: Text(buttonMsg),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ),
+
+        ],
+      ),
+
+
+    );
+  }
+  void _showSelectedDate()async{
+    final DateTime? newDate = await showDatePicker(
+      context: context,
+      initialDate:DateTime.now() , // es la fecha que se mostrara primero
+      firstDate: DateTime(1925, 1), // es la primera fecha que se mostrara en el calendario (año, mes)
+      lastDate: DateTime.now(),
+      helpText: "Fecha de Nacimiento",
+    ); // en esa linea se queda esperando y se configura el calendario
+    if (newDate != null){
+      setState(() {
+        _initialDate= newDate;
+        buttonMsg = "Fecha de Nacimiento: ${_dateConverter(newDate)}";
+
+      });//indica y guarda el valor de la fecha de nacimiento
+
+    }
+  }
+  String _dateConverter(DateTime date){
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final String dateFormatted = formatter.format(date);
+    return dateFormatted;
   }
 }
