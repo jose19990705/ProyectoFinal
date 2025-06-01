@@ -5,10 +5,11 @@ class Tourist {
   var _bornDate;
   var _foodTastes;
   var _placeTates;
+  var _usertypet;
 
 
   Tourist(this._uid, this._name, this._email, this._bornDate, this._foodTastes,
-      this._placeTates);
+      this._placeTates, this._usertypet);
 
   Map<String, dynamic> tojson()=>{
     'uid': _uid,
@@ -17,6 +18,7 @@ class Tourist {
     'bornDate': _bornDate,
     'foodTastes': _foodTastes,
     'placeTates':_placeTates,
+    'usertypet':_usertypet,
 
 
   };
@@ -30,29 +32,19 @@ class Tourist {
         _email= json['email'],
         _bornDate= json['bornDate'],
         _foodTastes=json['foodTastes'],
-        _placeTates= json['placeTates'];
+        _placeTates= json['placeTates'],
+        _usertypet= json['usertypet'];
 
-  get uid => _uid;
+  get usertypet => _usertypet;
 
-  set uid(value) {
-    _uid = value;
-  }
-  get name => _name;
-
-  set name(value) {
-    _name = value;
+  set usertypet(value) {
+    _usertypet = value;
   }
 
-  get email => _email;
+  get placeTates => _placeTates;
 
-  set email(value) {
-    _email = value;
-  }
-
-  get bornDate => _bornDate;
-
-  set bornDate(value) {
-    _bornDate = value;
+  set placeTates(value) {
+    _placeTates = value;
   }
 
   get foodTastes => _foodTastes;
@@ -61,10 +53,29 @@ class Tourist {
     _foodTastes = value;
   }
 
-  get placeTates => _placeTates;
+  get bornDate => _bornDate;
 
-  set placeTates(value) {
-    _placeTates = value;
+  set bornDate(value) {
+    _bornDate = value;
   }
+
+  get email => _email;
+
+  set email(value) {
+    _email = value;
+  }
+
+  get name => _name;
+
+  set name(value) {
+    _name = value;
+  }
+
+  get uid => _uid;
+
+  set uid(value) {
+    _uid = value;
+  }
+
 
 }
