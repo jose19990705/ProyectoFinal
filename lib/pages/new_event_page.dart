@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:laboratorio_3/pages/repository/firebase_api.dart';
+
+import '../models/event.dart';
+
+
 
 class NewEventPage extends StatefulWidget {
   const NewEventPage({super.key});
@@ -10,6 +15,9 @@ class NewEventPage extends StatefulWidget {
 }
 
 class _NewEventPageState extends State<NewEventPage> {
+
+  final FirebaseApi _firebaseApi = FirebaseApi();
+
   final _id = TextEditingController();
   final _organizador = TextEditingController();
   final _evento = TextEditingController();
@@ -26,7 +34,6 @@ class _NewEventPageState extends State<NewEventPage> {
   DateTime _initialDate = DateTime.now();
   String buttonMsgfinal = "Fecha de terminación";
   DateTime _finalDate = DateTime.now();
-  String buttonMsg = "Fecha de nacimiento";
 
   @override
   Widget build(BuildContext context) {
@@ -234,6 +241,25 @@ class _NewEventPageState extends State<NewEventPage> {
                         ),
                         keyboardType: TextInputType.text,
                       ), // Ubicacion
+                      SizedBox(height: 16,),
+                      TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        controller: _edades,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Mínima edad permitida",
+                            prefixIcon: Icon(Icons.person,color: Colors.white,),
+                            labelStyle: const TextStyle(color: Colors.white),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white,width: 2.0)
+                            )
+
+                        ), //
+                        keyboardType: TextInputType.number,
+                      ), //Edades
                       SizedBox(height: 16,), // Espacio entre widgets
                       const Text("Descripción del evento",style: TextStyle(color: Colors.white),),
                       const SizedBox(height: 8),
@@ -271,14 +297,26 @@ class _NewEventPageState extends State<NewEventPage> {
 
                         ),
                         keyboardType: TextInputType.url,
-                      ),
+                      ), //Pagina web
                       SizedBox(height: 16,), // espacio entre widgets
                       ElevatedButton(
                         onPressed: () {
                           _showSelectedDate();
                         },
-                        child: Text(buttonMsg),
-                      ),
+                        child: Text(buttonMsginit),
+                      ),//fecha inicial
+                      SizedBox(height: 16,), // espacio entre widgets
+                      ElevatedButton(
+                        onPressed: () {
+                          _showSelectedDatefinal();
+                        },
+                        child: Text(buttonMsgfinal),
+                      ),//fecha final
+                      SizedBox(height: 16,),
+                      ElevatedButton(
+                          onPressed: _saveEvent,
+                          child: const Text("Guardar Evento")
+                      ), //registro
                     ],
                   ),
                 ),
@@ -291,18 +329,61 @@ class _NewEventPageState extends State<NewEventPage> {
 
     );
   }
+  void _saveEvent() async{
+    var event = Event( "", _organizador.text, _evento.text, _categoria, _horainicial.text, _horafinal.text, _costo.text, _urlimage.text, _ubicacion.text, _descripcion.text, _enlaceweb.text, _edades.text, _initialDate, _finalDate, "");
+    var result = await _firebaseApi.createEventInDB(event);
+    if(result == 'network-request-failed'){
+      showMsg('Revise su conexion a internet');
+    }else {
+      showMsg("Evento guardado");
+      //Navigator.pushReplacement(
+          //context, MaterialPageRoute(builder: (context) => SignInPage())); //para que se devuelva al dominio
+      Navigator.pop(context);
+    }
+
+  }
+  void showMsg(String msg){
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+        SnackBar(
+          content: Text(msg),
+          duration: Duration(seconds: 10),
+          action: SnackBarAction(
+              label: "Aceptar",
+              onPressed: scaffold.hideCurrentSnackBar
+          ),
+        )
+    );
+  }
   void _showSelectedDate()async{
     final DateTime? newDate = await showDatePicker(
       context: context,
       initialDate:DateTime.now() , // es la fecha que se mostrara primero
       firstDate: DateTime(1925, 1), // es la primera fecha que se mostrara en el calendario (año, mes)
-      lastDate: DateTime.now(),
-      helpText: "Fecha de Nacimiento",
+      lastDate: DateTime(3000, 1),
+      helpText: "Fecha del evento",
     ); // en esa linea se queda esperando y se configura el calendario
     if (newDate != null){
       setState(() {
         _initialDate= newDate;
-        buttonMsg = "Fecha de Nacimiento: ${_dateConverter(newDate)}";
+        buttonMsginit = "Fecha inicial del evento: ${_dateConverter(newDate)}";
+
+      });//indica y guarda el valor de la fecha de nacimiento
+
+    }
+  }
+  void _showSelectedDatefinal()async{
+    final DateTime? newDate = await showDatePicker(
+      context: context,
+      initialDate:DateTime.now() , // es la fecha que se mostrara primero
+      firstDate: DateTime(1925, 1), // es la primera fecha que se mostrara en el calendario (año, mes)
+      lastDate: DateTime(3000, 1),
+      helpText: "Fecha de terminación del evento",
+    ); // en esa linea se queda esperando y se configura el calendario
+    if (newDate != null){
+      setState(() {
+        _finalDate= newDate;
+        buttonMsgfinal = "Fecha final del evento: ${_dateConverter(newDate)}";
 
       });//indica y guarda el valor de la fecha de nacimiento
 
