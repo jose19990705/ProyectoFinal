@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:laboratorio_3/models/shopkeeper.dart';
+import '../../models/food.dart';
 import '../../models/tourist.dart' as TouristApp;
 import '../../models/shopkeeper.dart' as ShopkeeperApp;
 
@@ -77,7 +78,30 @@ class FirebaseApiRegisterTouristAndShopkeeper {
     }
   }
 
+  Future<String> createFoodIDB(Food food) async {
+    try {
+      final db = FirebaseFirestore.instance;
+      final uid = FirebaseAuth.instance.currentUser?.uid;
 
+      if (uid == null) return 'user-not-logged-in';
+
+      final document = db
+          .collection("Negociante")
+          .doc(uid)
+          .collection("Food")
+          .doc();
+
+      food.id = document.id;
+
+      await document.set(food.toJson());
+      await db.collection("Food").doc(food.id).set(food.toJson());
+
+      return food.id!;
+    } on FirebaseException catch (e) {
+      print("FirebaseException ${e.code}");
+      return e.code;
+    }
+  }
 
 
 
