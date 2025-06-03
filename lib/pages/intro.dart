@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:laboratorio_3/pages/new_Food_Page.dart';
 import 'package:laboratorio_3/pages/sign_in_Page.dart';
 
 class Intro extends StatefulWidget {
@@ -62,6 +63,7 @@ class _IntroState extends State<Intro> {
     Navigator.push(
       context,
       MaterialPageRoute(
+        //builder: (context) => const SignInPage(),
         builder: (context) => const SignInPage(),
       ),
     );

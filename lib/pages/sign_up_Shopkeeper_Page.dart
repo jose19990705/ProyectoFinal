@@ -180,6 +180,7 @@ class _SignUpShopkeeperPageState extends State<SignUpShopkeeperPage> {
                         TextField(
                           controller: _descriptionController,
                           maxLines: 3,
+                          style: TextStyle(color: Colors.white),
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Ej. Restaurante especializado en comida italiana...',
@@ -199,6 +200,7 @@ class _SignUpShopkeeperPageState extends State<SignUpShopkeeperPage> {
                         TextField(
                           controller: _servicesController,
                           maxLines: 2,
+                          style: TextStyle(color: Colors.white),
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Ej. Domicilios, Eventos, temáticas',
@@ -270,7 +272,7 @@ class _SignUpShopkeeperPageState extends State<SignUpShopkeeperPage> {
       showMesg('Revise su conexión a internet');
     } else {
       var _shokeeper = Shopkeeper(result, _name.text, _email.text, _bornDate,
-          _descriptionController.text, _servicesController.text);
+          _descriptionController.text, _servicesController.text, "Empresa");
 
       creatUserInDB(_shokeeper);
     }

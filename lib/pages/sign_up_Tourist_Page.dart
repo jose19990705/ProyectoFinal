@@ -273,7 +273,7 @@ class _SignUpTouristPageState extends State<SignUpTouristPage> {
           .map((entry) => entry.key)
           .toList();
 
-      var _turista=Tourist(result, _name.text, _email.text, _bornDate,_foodType , _placesType);
+      var _turista=Tourist(result, _name.text, _email.text, _bornDate,_foodType , _placesType, "Turista");
 
       creatUserInDB(_turista);
     }

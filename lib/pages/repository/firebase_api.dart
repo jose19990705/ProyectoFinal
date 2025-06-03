@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../models/event.dart';
 import '../models/useradmin.dart' as UserApp;
 
 class FirebaseApi{
@@ -57,6 +58,38 @@ class FirebaseApi{
       final document = await db.collection('Administradores').doc(user.uid).set(user.toJson());
 
       return user.uid;
+    } on FirebaseException catch (e, stack) {
+      print ("FirebaseExeption ${e.code}");// mensaje de error para los desarrolladores
+      print ("Stack: $stack");
+      return e.code;
+    }
+
+  }
+  Future<String> createEventInDB(Event event) async{
+    try {
+      final db =FirebaseFirestore.instance;
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      final document = await FirebaseFirestore.instance
+      .collection("Negociante")
+      .doc(uid)
+      .collection("MyEvents")
+      .doc();
+
+      event.uid = document.id;
+
+      await db
+        .collection("Negociante")
+        .doc(uid)
+        .collection("MyEvents")
+        .doc(event.uid)
+        .set(event.toJson());
+
+      await db
+          .collection("Events")
+          .doc(event.uid)
+          .set(event.toJson());
+      return document.id;
+
     } on FirebaseException catch (e, stack) {
       print ("FirebaseExeption ${e.code}");// mensaje de error para los desarrolladores
       print ("Stack: $stack");
