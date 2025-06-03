@@ -281,7 +281,7 @@ class _AdminRConfirmadoState extends State<AdminRConfirmado> {
       showMsg("Revise su conexion a internet");
     } else{
       var genre = (_genre == Genre.male) ? "Masculino":"Femenino";
-      var _user = UserAdmin(result, _name.text, _email.text, genre, _bornDate, _cellphone.text, "");
+      var _user = UserAdmin(result, _name.text, _email.text, genre, _bornDate, _cellphone.text, "", "Administrador");
       createUserIDB(_user);
 
     }
