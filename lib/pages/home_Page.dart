@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:laboratorio_3/pages/detail_event_page.dart';
 import 'package:laboratorio_3/pages/new_event_page.dart';
 
 
@@ -58,12 +59,17 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _addButtonClicked,
         child: const Icon(Icons.add_card),
-      ),
+      ),// Boton de añador
     );
   }
   Widget buildCard(QueryDocumentSnapshot event){
     return InkWell(
-      onTap: null, //para un click
+      onTap: (){
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  DetailEventPage(event)),
+        );
+      }, //para un click y que se abran los detalles del evento
       onLongPress: null, //para un click sostenido
       child: Card(
         elevation: 4.0,
