@@ -34,7 +34,8 @@ class MyApp extends StatelessWidget {
         Locale("en","US"),
       ],
       theme: ThemeData(
-
+        //useMaterial3: true,
+        //brightness: Brightness.dark,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
       ),
       home: const SplashPage(),

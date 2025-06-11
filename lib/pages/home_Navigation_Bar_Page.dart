@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:laboratorio_3/pages/home_Page.dart';
 import 'package:laboratorio_3/pages/intro.dart';
+import 'package:laboratorio_3/pages/map_j.dart';
 import 'package:laboratorio_3/pages/my_profile_page.dart';
 import 'package:laboratorio_3/pages/my_profile_shopkeeper_page.dart';
 import 'package:laboratorio_3/pages/new_Food_Page.dart';
@@ -20,7 +21,8 @@ class _HomeNavigationBarPageState extends State<HomeNavigationBarPage> {
   int _selectedIndex = 0; //es el numero de paginas se va de 0 a 3
   static const List<Widget> _widgetOptions =[
     HomePage(),
-    MapPage(),
+    //MapPage(),
+    MapJ(),
     //NotificationsPage(),
     NewFoodPage(),
     //MyProfilePage(),
