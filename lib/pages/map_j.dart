@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
-const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoianVudGFybyIsImEiOiJjbWJyNHN2N24wNmdwMmpwdjJiejNxczBhIn0.hrTjAk8pdNz084-S_EtOYw';
+const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoianVudGFybyIsImEiOiJjbWJ3cTk0b3cxNDFtMmlwd2F6eTVvN3MwIn0.qD7oU5bDtfwyUznaUWqDTA';
 final myPosition = LatLng(6.268025143631159, -75.56881930626942);
 
 
@@ -26,13 +26,14 @@ class _MapJState extends State<MapJ> {
           options: MapOptions(
             center:  myPosition,
             minZoom: 5,
-            maxZoom: 2000,
-            zoom: 50,
+            maxZoom: 18,
+            zoom: 15,
           ),
         nonRotatedChildren: [TileLayer(
-          urlTemplate: 'https://console.mapbox.com/studio/styles/juntaro/cmbrgrtj7001u01rx35znh8u2/edit/#2/38/-34',
+          urlTemplate: 'https://api.mapbox.com/styles/v1/juntaro/cmbrgrtj7001u01rx35znh8u2/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoianVudGFybyIsImEiOiJjbWJ3cTk0b3cxNDFtMmlwd2F6eTVvN3MwIn0.qD7oU5bDtfwyUznaUWqDTA',
+          userAgentPackageName: 'com.josea.laboratorio_3',
           additionalOptions: {
-            'accesToken': MAPBOX_ACCESS_TOKEN,
+            'accessToken': MAPBOX_ACCESS_TOKEN,
             'id': 'mapbox/streets-v12'
           },
         ),
