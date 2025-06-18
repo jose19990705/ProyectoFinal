@@ -49,8 +49,24 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
             child: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
               future: _profileFuture,
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
+                }
+                if (!snapshot.hasData || !snapshot.data!.exists) {
+                  // Documento no encontrado: solo mostrar botón de cerrar sesión
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("No se encontraron los datos del perfil", style: TextStyle(color: Colors.white, fontSize: 18)),
+                      const SizedBox(height: 20),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: _onSignOutButtonClicked,
+                          child: const Text("Cerrar sesión"),
+                        ),
+                      ),
+                    ],
+                  );
                 }
 
                 final data = snapshot.data!.data()!;
