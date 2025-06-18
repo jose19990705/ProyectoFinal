@@ -12,6 +12,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final SearchController _searchController = SearchController();
+  List<QueryDocumentSnapshot> _searchResults = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,29 +32,63 @@ class _HomePageState extends State<HomePage> {
             top: 50,
             left: 0,
             right: 0,
-            height: 280,
-            child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection("Events").snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Center(child: Text("Error: ${snapshot.error}"));
-                }
-                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return const Center(child: Text("No hay eventos"));
-                }
-
-                final events = snapshot.data!.docs;
-
-                return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: events.length,
-                  itemBuilder: (context, index) {
-                    final event = events[index];
-                    return buildCard(event);
+            child: Column(
+              children: [
+                SearchAnchor.bar(
+                  barHintText: "Buscar eventos o lugares...",
+                  searchController: _searchController,
+                  suggestionsBuilder: (context, controller){
+                    return _searchResults.map((event){
+                      return ListTile(
+                        title: Text(event['nameEvent']),
+                        subtitle: Text(event['location']),
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailEventPage(event),
+                              ),
+                          );
+                        },
+                      );
+                    }).toList();
                   },
-                );
-              },
+                  onTap: () async {
+                    await _performSearch(_searchController.text);
+                  },
+                  onChanged: (query) async {
+                    await _performSearch(query);
+                  },
+                ),
+                SizedBox(height: 10),
+                SizedBox(
+                  height: 280,
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance.collection("Events").snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Center(child: Text("Error: ${snapshot.error}"));
+                      }
+                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                        return const Center(child: Text("No hay eventos"));
+                      }
+
+                      final events = snapshot.data!.docs;
+
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: events.length,
+                        itemBuilder: (context, index) {
+                          final event = events[index];
+                          return buildCard(event);
+                        },
+                      );
+                    },
+                  ),
+                )
+              ],
             ),
+
           ),
         ],
       ),
@@ -148,5 +184,39 @@ class _HomePageState extends State<HomePage> {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const NewEventPage())
     );
+  }
+
+  Future<void> _performSearch(String query) async {
+    if (query.isEmpty) {
+      setState(() => _searchResults = []);
+      return;
+    }
+
+    final firestore = FirebaseFirestore.instance;
+
+    final nameQuery = await firestore
+        .collection('Events')
+        .where('nameEvent', isGreaterThanOrEqualTo: query)
+        .where('nameEvent', isLessThanOrEqualTo: query + '\uf8ff')
+        .get();
+
+    final locationQuery = await firestore
+        .collection('Events')
+        .where('location', isGreaterThanOrEqualTo: query)
+        .where('location', isLessThanOrEqualTo: query + '\uf8ff')
+        .get();
+
+    final allResults = [
+      ...nameQuery.docs,
+      ...locationQuery.docs,
+    ];
+
+    final uniqueEvents = {
+      for (var doc in allResults) doc.id: doc,
+    };
+
+    setState(() {
+      _searchResults = uniqueEvents.values.toList();
+    });
   }
 }
