@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:laboratorio_3/pages/arks_Page.dart';
 import 'package:laboratorio_3/pages/detail_event_page.dart';
+import 'package:laboratorio_3/pages/events_Page.dart';
 import 'package:laboratorio_3/pages/new_event_page.dart';
+import 'package:laboratorio_3/pages/restaurant_Page.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -22,7 +25,7 @@ class _HomePageState extends State<HomePage> {
           // Imagen de fondo
           Positioned.fill(
             child: Image.asset(
-              'assets/images/Med_Map.png',
+              'assets/images/Fondo_home.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -61,6 +64,86 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
                 SizedBox(height: 10),
+                Text("Opciones                                                 ",
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 16,),
+                  ),
+                SizedBox(
+                  height: 150,
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: TextButton(
+                              onPressed: (){
+                                _events();
+                              },
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CircleAvatar(
+                                    radius: 40, // Tamaño del círculo
+                                    backgroundImage: AssetImage('assets/images/Parques.jpg'),
+                                  ),
+                                  SizedBox(height: 2),
+                                  Text('Parques',style: TextStyle(color: Colors.white),),
+                                ],
+                              ),
+                          ),
+                      ), //Parques
+                      SizedBox(width: 5),
+                      Expanded(
+                        child: TextButton(
+                          onPressed: (){
+                            _restaurants();
+                          },
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CircleAvatar(
+                                radius: 40, // Tamaño del círculo
+                                backgroundImage: AssetImage('assets/images/Rest.jpg'),
+                              ),
+                              SizedBox(height: 2),
+                              Text('Restaurantes',style: TextStyle(color: Colors.white),),
+                            ],
+                          ),
+                        ),
+                      ), // Restaurantes
+                      SizedBox(width: 5),
+                      Expanded(
+                        child: TextButton(
+                          onPressed: (){
+                            _events();
+                          },
+
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CircleAvatar(
+                                radius: 40, // Tamaño del círculo
+                                backgroundImage: AssetImage('assets/images/Concierto.jpg'),
+                              ),
+                              SizedBox(height: 2),
+                              Text('Eventos', style: TextStyle(color: Colors.white),),
+                            ],
+                          ),
+                        ),
+                      ), // Eventos
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10),
+                TextButton(
+                  onPressed: (){
+                    _events();
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Eventos       >                                            ',
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 16,),),
+                    ],
+                  ),
+                ),
                 SizedBox(
                   height: 280,
                   child: StreamBuilder<QuerySnapshot>(
@@ -85,7 +168,8 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                   ),
-                )
+                ),//Lista de Eventos enHorizontal
+
               ],
             ),
 
@@ -218,5 +302,35 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _searchResults = uniqueEvents.values.toList();
     });
+  }
+  void _events(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        //builder: (context) => const SignInPage(),
+        builder: (context) => const EventsPage(),
+      ),
+    );
+
+  }
+  void _parks(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        //builder: (context) => const SignInPage(),
+        builder: (context) => const ArksPage(),
+      ),
+    );
+
+  }
+  void _restaurants(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        //builder: (context) => const SignInPage(),
+        builder: (context) => const RestaurantPage(),
+      ),
+    );
+
   }
 }
