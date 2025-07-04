@@ -1,1 +1,1 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"medex-b36ec","appId":"1:1024441459942:android:654c390014a77a2a094727","fileOutput":"android/app/google-services.json"}}}}}
+{"flutter":{"platforms":{"android":{"default":{"projectId":"medex2-32db8","appId":"1:470289897203:android:16638039c8f02cb02b0986","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"medex2-32db8","configurations":{"android":"1:470289897203:android:16638039c8f02cb02b0986","ios":"1:470289897203:ios:9f7e431f6c5869232b0986"}}}}}}

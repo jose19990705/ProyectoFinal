@@ -69,7 +69,16 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
                   );
                 }
 
+                if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}', style: TextStyle(color: Colors.white)));
+                }
+
+                if (!snapshot.hasData || !snapshot.data!.exists) {
+                  return const Center(child: Text('No se encontraron datos del usuario.', style: TextStyle(color: Colors.white)));
+                }
+
                 final data = snapshot.data!.data()!;
+
                 final name = data['name'] ?? 'No name';
                 final description = data['businessDescription'] ?? 'No description';
                 final service = data['productsService'] ?? 'No service';
