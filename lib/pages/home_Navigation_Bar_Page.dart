@@ -5,6 +5,7 @@ import 'package:laboratorio_3/pages/intro.dart';
 import 'package:laboratorio_3/pages/map_j.dart';
 import 'package:laboratorio_3/pages/my_profile_page.dart';
 import 'package:laboratorio_3/pages/my_profile_shopkeeper_page.dart';
+import 'package:laboratorio_3/pages/my_profile_tourist_page.dart';
 import 'package:laboratorio_3/pages/new_Food_Page.dart';
 
 import 'map_page.dart';
@@ -25,8 +26,8 @@ class _HomeNavigationBarPageState extends State<HomeNavigationBarPage> {
     MapJ(),
     //NotificationsPage(),
     NewFoodPage(),
-    MyProfilePage(),
-    //MyProfileShopkeeperPage(),
+    //MyProfilePage(),
+    MyProfileTouristPage(),
 
   ]; // arreglo de widgets, se colocan las paginas
   void _onItemTapped(int index){

@@ -1,7 +1,10 @@
+//Este archivo, es la página de los negociantes. 
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:laboratorio_3/pages/repository/firebase_api.dart';
+import 'package:laboratorio_3/pages/repository/firebase_api_get_data_shoopkeeper.dart';
 import 'package:laboratorio_3/pages/sign_in_Page.dart';
 
 class MyProfileShopkeeperPage extends StatefulWidget {
@@ -16,12 +19,14 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
   late Future<List<Map<String, dynamic>>> _foodListFuture;
 
   @override
+  @override
   void initState() {
     super.initState();
-    final uid = FirebaseAuth.instance.currentUser!.uid;
-    _profileFuture = FirebaseFirestore.instance.collection('Negociante').doc(uid).get();
-    _foodListFuture = _getFoods(uid);
+    final service = FirebaseApiGetDataShopkeeper();
+    _profileFuture = service.getCurrentShopkeeperData();
+    _foodListFuture = service.getFoodsFromShopkeeper();
   }
+
 
   Future<List<Map<String, dynamic>>> _getFoods(String uid) async {
     final snapshot = await FirebaseFirestore.instance
