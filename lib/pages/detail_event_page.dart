@@ -38,9 +38,11 @@ class _DetailEventPageState extends State<DetailEventPage> {
                     height: 140,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      image: const DecorationImage(
-                        image: AssetImage('assets/images/Ina.png'),
-                        fit: BoxFit.cover,
+                      image: DecorationImage(
+                        image: NetworkImage(event['urlImage']),
+                      //  image: AssetImage('assets/images/Ina.png'),
+                      
+                        //fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),
