@@ -31,48 +31,48 @@ class _HomePageState extends State<HomePage> {
           ),
 
           // Lista horizontal de eventos
-          Positioned(
-            top: 50,
-            left: 0,
-            right: 0,
-            child: Column(
-              children: [
-                SearchAnchor.bar(
-                  barHintText: "Buscar eventos o lugares...",
-                  searchController: _searchController,
-                  suggestionsBuilder: (context, controller){
-                    return _searchResults.map((event){
-                      return ListTile(
-                        title: Text(event['nameEvent']),
-                        subtitle: Text(event['location']),
-                        onTap: (){
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
+          SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                  children: [
+                    SearchAnchor.bar(
+                      barHintText: "Buscar eventos o lugares...",
+                      searchController: _searchController,
+                      suggestionsBuilder: (context, controller){
+                        return _searchResults.map((event){
+                          return ListTile(
+                            title: Text(event['nameEvent']),
+                            subtitle: Text(event['location']),
+                            onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
                                   builder: (context) => DetailEventPage(event),
-                              ),
+                                ),
+                              );
+                            },
                           );
-                        },
-                      );
-                    }).toList();
-                  },
-                  onTap: () async {
-                    await _performSearch(_searchController.text);
-                  },
-                  onChanged: (query) async {
-                    await _performSearch(query);
-                  },
-                ),
-                SizedBox(height: 10),
-                Text("Opciones                                                 ",
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 16,),
-                  ),
-                SizedBox(
-                  height: 150,
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: TextButton(
+                        }).toList();
+                      },
+                      onTap: () async {
+                        await _performSearch(_searchController.text);
+                      },
+                      onChanged: (query) async {
+                        await _performSearch(query);
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    Text("Opciones                                                 ",
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 16,),
+                    ),
+                    SizedBox(
+                      height: 150,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextButton(
                               onPressed: (){
                                 _events();
                               },
@@ -83,94 +83,96 @@ class _HomePageState extends State<HomePage> {
                                     radius: 40, // Tamaño del círculo
                                     backgroundImage: AssetImage('assets/images/Parques.jpg'),
                                   ),
-                                  SizedBox(height: 2),
+                                  SizedBox(height: 1),
                                   Text('Parques',style: TextStyle(color: Colors.white),),
                                 ],
                               ),
-                          ),
-                      ), //Parques
-                      SizedBox(width: 5),
-                      Expanded(
-                        child: TextButton(
-                          onPressed: (){
-                            _restaurants();
-                          },
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              CircleAvatar(
-                                radius: 40, // Tamaño del círculo
-                                backgroundImage: AssetImage('assets/images/Rest.jpg'),
+                            ),
+                          ), //Parques
+                          SizedBox(width: 4),
+                          Expanded(
+                            child: TextButton(
+                              onPressed: (){
+                                _restaurants();
+                              },
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CircleAvatar(
+                                    radius: 40, // Tamaño del círculo
+                                    backgroundImage: AssetImage('assets/images/Rest.jpg'),
+                                  ),
+                                  SizedBox(height: 3),
+                                  Text('Restaurante',style: TextStyle(color: Colors.white,height: 1),),
+                                ],
                               ),
-                              SizedBox(height: 2),
-                              Text('Restaurantes',style: TextStyle(color: Colors.white),),
-                            ],
-                          ),
-                        ),
-                      ), // Restaurantes
-                      SizedBox(width: 5),
-                      Expanded(
-                        child: TextButton(
-                          onPressed: (){
-                            _events();
-                          },
+                            ),
+                          ), // Restaurantes
+                          SizedBox(width:2),
+                          Expanded(
+                            child: TextButton(
+                              onPressed: (){
+                                _events();
+                              },
 
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              CircleAvatar(
-                                radius: 40, // Tamaño del círculo
-                                backgroundImage: AssetImage('assets/images/Concierto.jpg'),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CircleAvatar(
+                                    radius: 40, // Tamaño del círculo
+                                    backgroundImage: AssetImage('assets/images/Concierto.jpg'),
+                                  ),
+                                  SizedBox(height: 2),
+                                  Text('Eventos', style: TextStyle(color: Colors.white),),
+                                ],
                               ),
-                              SizedBox(height: 2),
-                              Text('Eventos', style: TextStyle(color: Colors.white),),
-                            ],
-                          ),
-                        ),
-                      ), // Eventos
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10),
-                TextButton(
-                  onPressed: (){
-                    _events();
-                  },
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text('Eventos       >                                            ',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 16,),),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 280,
-                  child: StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance.collection("Events").snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Center(child: Text("Error: ${snapshot.error}"));
-                      }
-                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                        return const Center(child: Text("No hay eventos"));
-                      }
+                            ),
+                          ), // Eventos
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    TextButton(
+                      onPressed: (){
+                        _events();
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('Eventos       >                                            ',
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 16,),),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 300,
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance.collection("Events").snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Center(child: Text("Error: ${snapshot.error}"));
+                          }
+                          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                            return const Center(child: Text("No hay eventos"));
+                          }
 
-                      final events = snapshot.data!.docs;
+                          final events = snapshot.data!.docs;
 
-                      return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: events.length,
-                        itemBuilder: (context, index) {
-                          final event = events[index];
-                          return buildCard(event);
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: events.length,
+                            itemBuilder: (context, index) {
+                              final event = events[index];
+                              return buildCard(event);
+                            },
+                          );
                         },
-                      );
-                    },
-                  ),
-                ),//Lista de Eventos enHorizontal
+                      ),
+                    ),//Lista de Eventos enHorizontal
 
-              ],
+                  ],
+                ),
+              ),
             ),
 
           ),
@@ -205,9 +207,9 @@ class _HomePageState extends State<HomePage> {
                height: 140,
                width: double.infinity,
                decoration: BoxDecoration(
-                 image: const DecorationImage(
-                   image: AssetImage('assets/images/Ina.png'),
-                   fit: BoxFit.cover,
+                 image:  DecorationImage(
+                   image: NetworkImage(event['urlImage']),
+                   //fit: BoxFit.cover,
                  ),
                  borderRadius: BorderRadius.circular(10),
                ),
@@ -238,27 +240,7 @@ class _HomePageState extends State<HomePage> {
            ],
          ),
        ),
-       // child: Column(
-          //children:[
-           // ListTile(
-              //title: Text(event['nameEvent']),
-              //titleTextStyle: TextStyle(color: Colors.white),
-              //subtitle: Text(event['category']),
-              //subtitleTextStyle: TextStyle(color: Colors.white),
 
-            //),
-
-            //Container(
-              //height: 100.0,
-              //width: 200.0,
-
-              //child: Ink.image(
-                //image: AssetImage('assets/images/Ina.png'),
-              //),
-            //),
-            //SizedBox(height: 8.0,)
-          //],
-        //),
       ),
 
 
