@@ -24,14 +24,14 @@ class _NewFoodPageState extends State<NewFoodPage> {
   final _precio = TextEditingController();
   final _descripcion = TextEditingController();
 
-  String _categoriaSeleccionada = 'comida_china';
+  String _categoriaSeleccionada = 'Comida China';
   File? image;
 
   final List<String> _categorias = [
-    'comida_china',
-    'comida_italiana',
-    'comida_colombiana',
-    'comida_mexicana',
+    'Comida Italiana',
+    'Comida Mexicana',
+    'Comida China',
+    'Comida Colombiana',
   ];
 
   @override
