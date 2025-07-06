@@ -28,7 +28,7 @@ class _HomeNavigationBarPageState extends State<HomeNavigationBarPage> {
     //NotificationsPage(),
     NewFoodPage(),
     //MyProfilePage(),
-    MyProfileTouristPage(),
+    MyProfileShopkeeperPage(),
 
   ]; // arreglo de widgets, se colocan las paginas
   void _onItemTapped(int index){

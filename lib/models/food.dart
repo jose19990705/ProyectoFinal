@@ -6,10 +6,17 @@ class Food {
   var _descripcion;
 
   var _imagenBase64;
+  var _urlImage;
 
 
   Food(this._id,this._nombre, this._precio, this._categoria, this._descripcion,
-       this._imagenBase64);
+       this._imagenBase64, this._urlImage);
+
+  get urlImage => _urlImage;
+
+  set urlImage(value) {
+    _urlImage = value;
+  }
 
   Map<String, dynamic> toJson() => {
     'id': _id,
@@ -18,6 +25,7 @@ class Food {
     'categoria': _categoria,
     'descripcion': _descripcion,
     'imagen': _imagenBase64,
+    'urlImage': _urlImage,
   };
 
   get id => _id;
