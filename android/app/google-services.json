@@ -1,13 +1,32 @@
 {
   "project_info": {
-    "project_number": "1024441459942",
-    "project_id": "medex-b36ec",
-    "storage_bucket": "medex-b36ec.firebasestorage.app"
+    "project_number": "470289897203",
+    "project_id": "medex2-32db8",
+    "storage_bucket": "medex2-32db8.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1024441459942:android:654c390014a77a2a094727",
+        "mobilesdk_app_id": "1:470289897203:android:189d74c07515abdb2b0986",
+        "android_client_info": {
+          "package_name": "com.josea.laboratorio5"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAajHzV4rsKuhGYDBuTujEXO2At7JWcXHU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470289897203:android:16638039c8f02cb02b0986",
         "android_client_info": {
           "package_name": "com.josea.laboratorio_3"
         }
@@ -15,7 +34,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAg7SRPTGUcDSKBdRaNs-Ba8Jmybm_LjU0"
+          "current_key": "AIzaSyAajHzV4rsKuhGYDBuTujEXO2At7JWcXHU"
         }
       ],
       "services": {

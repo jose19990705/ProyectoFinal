@@ -1,7 +1,10 @@
+//Este archivo, es la página de los negociantes. 
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:laboratorio_3/pages/repository/firebase_api.dart';
+import 'package:laboratorio_3/pages/repository/firebase_api_get_data_shoopkeeper.dart';
 import 'package:laboratorio_3/pages/sign_in_Page.dart';
 
 class MyProfileShopkeeperPage extends StatefulWidget {
@@ -16,12 +19,14 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
   late Future<List<Map<String, dynamic>>> _foodListFuture;
 
   @override
+  @override
   void initState() {
     super.initState();
-    final uid = FirebaseAuth.instance.currentUser!.uid;
-    _profileFuture = FirebaseFirestore.instance.collection('Negociante').doc(uid).get();
-    _foodListFuture = _getFoods(uid);
+    final service = FirebaseApiGetDataShopkeeper();
+    _profileFuture = service.getCurrentShopkeeperData();
+    _foodListFuture = service.getFoodsFromShopkeeper();
   }
+
 
   Future<List<Map<String, dynamic>>> _getFoods(String uid) async {
     final snapshot = await FirebaseFirestore.instance
@@ -49,11 +54,36 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
             child: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
               future: _profileFuture,
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
+                }
+                if (!snapshot.hasData || !snapshot.data!.exists) {
+                  // Documento no encontrado: solo mostrar botón de cerrar sesión
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("No se encontraron los datos del perfil", style: TextStyle(color: Colors.white, fontSize: 18)),
+                      const SizedBox(height: 20),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: _onSignOutButtonClicked,
+                          child: const Text("Cerrar sesión"),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+
+                if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}', style: TextStyle(color: Colors.white)));
+                }
+
+                if (!snapshot.hasData || !snapshot.data!.exists) {
+                  return const Center(child: Text('No se encontraron datos del usuario.', style: TextStyle(color: Colors.white)));
                 }
 
                 final data = snapshot.data!.data()!;
+
                 final name = data['name'] ?? 'No name';
                 final description = data['businessDescription'] ?? 'No description';
                 final service = data['productsService'] ?? 'No service';
