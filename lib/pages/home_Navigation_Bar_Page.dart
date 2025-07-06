@@ -7,6 +7,7 @@ import 'package:laboratorio_3/pages/my_profile_page.dart';
 import 'package:laboratorio_3/pages/my_profile_shopkeeper_page.dart';
 import 'package:laboratorio_3/pages/my_profile_tourist_page.dart';
 import 'package:laboratorio_3/pages/new_Food_Page.dart';
+import 'package:laboratorio_3/pages/restaurant_Page.dart';
 
 import 'map_page.dart';
 import 'notifications_page.dart';

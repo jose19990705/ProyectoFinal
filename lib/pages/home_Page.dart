@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:laboratorio_3/pages/arks_Page.dart';
+import 'package:laboratorio_3/pages/parks_Page.dart';
 import 'package:laboratorio_3/pages/detail_event_page.dart';
 import 'package:laboratorio_3/pages/events_Page.dart';
 import 'package:laboratorio_3/pages/new_event_page.dart';
