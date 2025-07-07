@@ -25,8 +25,8 @@ class _HomeNavigationBarPageState extends State<HomeNavigationBarPage> {
     HomePage(),
     //MapPage(),
     MapJ(),
-    //NotificationsPage(),
-    NewFoodPage(),
+    NotificationsPage(),
+    //NewFoodPage(),
     //MyProfilePage(),
     MyProfileShopkeeperPage(),
 
