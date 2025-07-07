@@ -4,12 +4,12 @@ class Food {
   var _precio;
   var _categoria;
   var _descripcion;
-
+  var _ratingFood;
   var _imagenBase64;
 
 
   Food(this._id,this._nombre, this._precio, this._categoria, this._descripcion,
-       this._imagenBase64);
+       this._imagenBase64, this._ratingFood);
 
   Map<String, dynamic> toJson() => {
     'id': _id,
@@ -18,6 +18,7 @@ class Food {
     'categoria': _categoria,
     'descripcion': _descripcion,
     'imagen': _imagenBase64,
+    'ratingFood': _ratingFood,
   };
 
   get id => _id;
@@ -56,6 +57,12 @@ class Food {
 
   set nombre(value) {
     _nombre = value;
+  }
+
+  get ratingFood => _ratingFood;
+
+  set ratingFood(value) {
+    _ratingFood = value;
   }
 
 

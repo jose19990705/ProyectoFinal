@@ -136,6 +136,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
       _categoriaSeleccionada,
       _descripcion.text,
       picture,
+      0,
     );
 
     final result = await _firebaseApi.createFoodIDB(food);
