@@ -8,6 +8,8 @@ import 'package:laboratorio_3/pages/notifications_page.dart';
 import 'package:laboratorio_3/pages/my_profile_shopkeeper_page.dart';
 import 'package:laboratorio_3/pages/my_profile_tourist_page.dart';
 
+import 'my_profile_page.dart';
+
 class HomeNavigationBarPage extends StatefulWidget {
   const HomeNavigationBarPage({super.key});
 
@@ -34,7 +36,11 @@ class _HomeNavigationBarPageState extends State<HomeNavigationBarPage> {
     if (touristDoc.exists) {
       return 'Turista';
     }
-
+    final AdminDoc =
+    await FirebaseFirestore.instance.collection('Admin').doc(uid).get();
+    if (AdminDoc.exists) {
+      return 'Admin';
+    }
     return 'Negociante';
   }
 
@@ -56,9 +62,13 @@ class _HomeNavigationBarPageState extends State<HomeNavigationBarPage> {
         }
 
         bool isTurista=false;
+        bool isAdmin=false;
 
         if((snapshot.data!)=='Turista'){
           isTurista=true;
+        }
+        if((snapshot.data!)=='Admin'){
+          isAdmin=true;
         }
 
         final List<Widget> _widgetOptions = [
@@ -67,7 +77,9 @@ class _HomeNavigationBarPageState extends State<HomeNavigationBarPage> {
           const NotificationsPage(),
           isTurista
               ? const MyProfileTouristPage()
-              : const MyProfileShopkeeperPage(),
+              : isAdmin
+              ? const MyProfilePage()
+              : const MyProfileShopkeeperPage()
         ];
 
         return Scaffold(
