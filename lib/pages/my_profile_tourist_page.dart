@@ -68,7 +68,7 @@ class _MyProfileTouristPageState extends State<MyProfileTouristPage> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/C_porfile.jpg',
+              'assets/images/Fondo_home.png',
               fit: BoxFit.cover,
             ),
           ),

@@ -34,7 +34,7 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/C_porfile.jpg',
+              'assets/images/Fondo_home.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -145,7 +145,7 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(8),
                                         child: Image.network(
-                                          food['imagenUrl'] ?? food['urlImage'],
+                                          food['imagenUrl'] ?? food['urlImage'] ?? '',
                                           fit: BoxFit.cover,
                                           errorBuilder: (context, error, stackTrace) {
                                             return const Icon(Icons.broken_image, size: 50);
@@ -226,7 +226,7 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
   }
 
   void _onTasteButtonClicked() {
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const NewFoodPage()),
     );
