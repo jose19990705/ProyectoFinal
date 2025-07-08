@@ -6,6 +6,8 @@ import 'package:laboratorio_3/pages/events_Page.dart';
 import 'package:laboratorio_3/pages/new_event_page.dart';
 import 'package:laboratorio_3/pages/restaurant_Page.dart';
 
+import 'carrusel_eventos.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -63,6 +65,8 @@ class _HomePageState extends State<HomePage> {
                         await _performSearch(query);
                       },
                     ),
+                    SizedBox(height: 10),
+                    CarruselEventos(),
                     SizedBox(height: 10),
                     Text("Opciones                                                 ",
                       style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 16,),
@@ -315,4 +319,6 @@ class _HomePageState extends State<HomePage> {
     );
 
   }
+
+
 }

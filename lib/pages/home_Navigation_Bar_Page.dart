@@ -16,6 +16,7 @@ class HomeNavigationBarPage extends StatefulWidget {
 }
 
 class _HomeNavigationBarPageState extends State<HomeNavigationBarPage> {
+
   int _selectedIndex = 0;
   late Future<String> _userTypeFuture;
 

@@ -130,12 +130,62 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
 
                               return Card(
                                 color: Colors.white70,
-                                child: ListTile(
-                                  title: Text(food['nombre'] ?? 'Sin nombre'),
-                                  subtitle: Text(
-                                    "Precio: ${food['precio'] ?? '---'}\nDescripción: ${food['descripcion'] ?? ''}\nRating: ${foodRating.toStringAsFixed(1)} ⭐",
-                                  ),
+
+                                //child: ListTile(
+                                //  title: Text(food['nombre'] ?? 'Sin nombre'),
+                                //  subtitle: Text("Precio: ${food['precio'] ?? '---'}\nDescripción: ${food['descripcion'] ?? ''}"),
+                                //),
+                                child: Row(
+                                  children: [
+                                    // Imagen desde URL
+                                    Container(
+                                      width: 100,
+                                      height: 100,
+                                      margin: const EdgeInsets.all(8.0),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.network(
+                                          food['imagenUrl'] ?? food['urlImage'],
+                                          fit: BoxFit.cover,
+                                          errorBuilder: (context, error, stackTrace) {
+                                            return const Icon(Icons.broken_image, size: 50);
+                                          },
+                                          loadingBuilder: (context, child, progress) {
+                                            if (progress == null) return child;
+                                            return const Center(child: CircularProgressIndicator());
+                                          },
+                                        ),
+                                      ),
+                                    ),
+
+                                    // Información del producto
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              food['nombre'] ?? 'Sin nombre',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text("Precio: ${food['precio'] ?? '---'}"),
+                                            Text("Descripción: ${food['descripcion'] ?? ''}"),
+                                           Text( "Rating: ${foodRating.toStringAsFixed(1)} ⭐"),
+                                            
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                               
                                 ),
+
+
                               );
                             },
                           );

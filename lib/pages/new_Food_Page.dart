@@ -24,7 +24,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
   final _nombre = TextEditingController();
   final _precio = TextEditingController();
   final _descripcion = TextEditingController();
-
+  final _urlimage = TextEditingController();
   String _categoriaSeleccionada = 'Comida China';
   File? image;
 
@@ -86,6 +86,25 @@ class _NewFoodPageState extends State<NewFoodPage> {
                 ],
               ),
               const SizedBox(height: 16),
+              TextFormField(
+                style: const TextStyle(color: Colors.black),
+                controller: _urlimage,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "URL de la imagen del plato",
+                    prefixIcon: Icon(Icons.image,color: Colors.black,),
+                    labelStyle: const TextStyle(color: Colors.black),
+                    enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black)
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black,width: 2.0)
+                    )
+
+                ),
+                keyboardType: TextInputType.text,
+              ), // URL de la imagen
+              const SizedBox(height: 16,),
               DropdownButtonFormField<String>(
                 value: _categoriaSeleccionada,
                 items: _categorias.map((cat) {
@@ -138,6 +157,8 @@ class _NewFoodPageState extends State<NewFoodPage> {
       _descripcion.text,
       picture,
       0,
+      _urlimage.text,
+
     );
 
     final result = await _firebaseApi.createFoodIDB(food);
