@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:laboratorio_3/pages/home_Page.dart';
+import 'package:laboratorio_3/pages/my_profile_shopkeeper_page.dart';
 import 'package:laboratorio_3/pages/repository/firebase_api_Register_Tourist_And_shopkeeper.dart';
 
 import '../models/food.dart';
@@ -155,7 +156,9 @@ class _NewFoodPageState extends State<NewFoodPage> {
       _categoriaSeleccionada,
       _descripcion.text,
       picture,
+      0,
       _urlimage.text,
+
     );
 
     final result = await _firebaseApi.createFoodIDB(food);
@@ -166,7 +169,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
       _mostrarMensaje("Plato guardado correctamente");
     Navigator.pushReplacement(
     context,
-    MaterialPageRoute(builder: (context) => HomeNavigationBarPage()),
+    MaterialPageRoute(builder: (context) => MyProfileShopkeeperPage()),
       );
     }
   }

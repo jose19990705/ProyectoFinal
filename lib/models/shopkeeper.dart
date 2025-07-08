@@ -6,10 +6,11 @@ class Shopkeeper{
   var _businessDescription;
   var _productsService;
   var _usertypes;
+  var _rating;
 
 
   Shopkeeper(this._uid, this._name, this._email, this._bornDate,
-      this._businessDescription, this._productsService, this._usertypes);
+      this._businessDescription, this._productsService, this._usertypes, this._rating);
 
   Map<String, dynamic> tojson()=>{
     'uid': _uid,
@@ -19,6 +20,7 @@ class Shopkeeper{
     'businessDescription': _businessDescription,
     'productsService': _productsService,
     'usertypes': _usertypes,
+    'rating': _rating,
 
 
 
@@ -64,6 +66,12 @@ class Shopkeeper{
 
   set uid(value) {
     _uid = value;
+  }
+
+  get rating => _rating;
+
+  set rating(value) {
+    _rating = value;
   }
 
 
