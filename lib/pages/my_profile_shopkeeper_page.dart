@@ -154,7 +154,9 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(8),
                                         child: Image.network(
+
                                           food['imagenUrl'] ?? food['urlImage'] ?? '',
+
                                           fit: BoxFit.cover,
                                           errorBuilder: (context, error, stackTrace) {
                                             return const Icon(Icons.broken_image, size: 50);
@@ -182,12 +184,15 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
                                             const SizedBox(height: 4),
                                             Text("Precio: ${food['precio'] ?? '---'}"),
                                             Text("Descripción: ${food['descripcion'] ?? ''}"),
+
                                             Text("Rating: ${foodRating.toStringAsFixed(1)} ⭐"),
                                           ],
                                         ),
                                       ),
                                     ),
                                   ],
+
+
                                 ),
                               );
                             },
