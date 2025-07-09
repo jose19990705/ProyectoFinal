@@ -26,14 +26,16 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       localizationsDelegates: const [ //intenacionalizacion de la app, que lenguajes maneja la app
         GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const[
         Locale("es", "CO"), // Lenguaje español colombia
         Locale("en","US"),
       ],
       theme: ThemeData(
-
+        //useMaterial3: true,
+        //brightness: Brightness.dark,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
       ),
       home: const SplashPage(),

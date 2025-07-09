@@ -1,5 +1,12 @@
+
+import 'dart:io';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:laboratorio_3/pages/repository/firebase_api.dart';
 
@@ -35,6 +42,8 @@ class _NewEventPageState extends State<NewEventPage> {
   String buttonMsgfinal = "Fecha de terminación";
   DateTime _finalDate = DateTime.now();
 
+  File? image;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,13 +68,17 @@ class _NewEventPageState extends State<NewEventPage> {
                         height: 170,
                         child: Stack(
                           children: [
-                            Image(image: AssetImage("assets/images/MEDEX.png"), width: 200, height: 200,),
+                            image != null
+                                ? Image.file(image!, width: 300, height: 200,)
+                            : const Image(image: AssetImage("assets/images/MEDEX.png"), width: 200, height: 200,),
                             Positioned(
                               bottom: 0,
                               right: 0,
                               child: IconButton(
                                   alignment: Alignment.bottomLeft,
-                                  onPressed: null,
+                                  onPressed: () async{
+                                    pickImage();
+                                  },
                                   icon: const Icon(Icons.camera_alt, color: Colors.white,)
                               ),
                             ),
@@ -330,7 +343,8 @@ class _NewEventPageState extends State<NewEventPage> {
     );
   }
   void _saveEvent() async{
-    var event = Event( "", _organizador.text, _evento.text, _categoria, _horainicial.text, _horafinal.text, _costo.text, _urlimage.text, _ubicacion.text, _descripcion.text, _enlaceweb.text, _edades.text, _initialDate, _finalDate, "");
+
+    var event = Event( "", _organizador.text, _evento.text, _categoria, _horainicial.text, _horafinal.text, _costo.text, _urlimage.text, _ubicacion.text, _descripcion.text, _enlaceweb.text, _edades.text, _initialDate, _finalDate, " ");
     var result = await _firebaseApi.createEventInDB(event);
     if(result == 'network-request-failed'){
       showMsg('Revise su conexion a internet');
@@ -393,5 +407,18 @@ class _NewEventPageState extends State<NewEventPage> {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String dateFormatted = formatter.format(date);
     return dateFormatted;
+  }
+  Future pickImage() async{
+    try{
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if(image== null) return;
+      final imageTemp= File(image.path);
+      setState(() {
+        this.image = imageTemp;
+      });
+
+    } on PlatformException catch(e){
+      print('Failed to pick image: $e');
+    }
   }
 }

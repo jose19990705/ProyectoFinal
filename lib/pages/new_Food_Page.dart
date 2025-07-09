@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:laboratorio_3/pages/home_Page.dart';
+import 'package:laboratorio_3/pages/my_profile_shopkeeper_page.dart';
 import 'package:laboratorio_3/pages/repository/firebase_api_Register_Tourist_And_shopkeeper.dart';
 
 import '../models/food.dart';
@@ -23,15 +24,15 @@ class _NewFoodPageState extends State<NewFoodPage> {
   final _nombre = TextEditingController();
   final _precio = TextEditingController();
   final _descripcion = TextEditingController();
-
-  String _categoriaSeleccionada = 'comida_china';
+  final _urlimage = TextEditingController();
+  String _categoriaSeleccionada = 'Comida China';
   File? image;
 
   final List<String> _categorias = [
-    'comida_china',
-    'comida_italiana',
-    'comida_colombiana',
-    'comida_mexicana',
+    'Comida Italiana',
+    'Comida Mexicana',
+    'Comida China',
+    'Comida Colombiana',
   ];
 
   @override
@@ -85,6 +86,25 @@ class _NewFoodPageState extends State<NewFoodPage> {
                 ],
               ),
               const SizedBox(height: 16),
+              TextFormField(
+                style: const TextStyle(color: Colors.black),
+                controller: _urlimage,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "URL de la imagen del plato",
+                    prefixIcon: Icon(Icons.image,color: Colors.black,),
+                    labelStyle: const TextStyle(color: Colors.black),
+                    enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black)
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black,width: 2.0)
+                    )
+
+                ),
+                keyboardType: TextInputType.text,
+              ), // URL de la imagen
+              const SizedBox(height: 16,),
               DropdownButtonFormField<String>(
                 value: _categoriaSeleccionada,
                 items: _categorias.map((cat) {
@@ -136,6 +156,9 @@ class _NewFoodPageState extends State<NewFoodPage> {
       _categoriaSeleccionada,
       _descripcion.text,
       picture,
+      0,
+      _urlimage.text,
+
     );
 
     final result = await _firebaseApi.createFoodIDB(food);
@@ -146,7 +169,7 @@ class _NewFoodPageState extends State<NewFoodPage> {
       _mostrarMensaje("Plato guardado correctamente");
     Navigator.pushReplacement(
     context,
-    MaterialPageRoute(builder: (context) => HomeNavigationBarPage()),
+    MaterialPageRoute(builder: (context) => MyProfileShopkeeperPage()),
       );
     }
   }

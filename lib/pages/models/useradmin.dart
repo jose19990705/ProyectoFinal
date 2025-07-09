@@ -10,7 +10,7 @@ class UserAdmin{
   var _usertype;
 
 
-  UserAdmin(this._uid, this._name, this._emai, this._genre, this._bornDate,
+  UserAdmin(this._uid ,this._name, this._emai, this._genre, this._bornDate,
       this._cellphone, this._urlPicture, this._usertype);
 
 

@@ -272,7 +272,7 @@ class _SignUpShopkeeperPageState extends State<SignUpShopkeeperPage> {
       showMesg('Revise su conexión a internet');
     } else {
       var _shokeeper = Shopkeeper(result, _name.text, _email.text, _bornDate,
-          _descriptionController.text, _servicesController.text, "Empresa");
+          _descriptionController.text, _servicesController.text, "Empresa",0);
 
       creatUserInDB(_shokeeper);
     }

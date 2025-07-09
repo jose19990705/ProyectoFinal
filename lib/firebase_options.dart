@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAg7SRPTGUcDSKBdRaNs-Ba8Jmybm_LjU0',
-    appId: '1:1024441459942:android:654c390014a77a2a094727',
-    messagingSenderId: '1024441459942',
-    projectId: 'medex-b36ec',
-    storageBucket: 'medex-b36ec.firebasestorage.app',
+    apiKey: 'AIzaSyAajHzV4rsKuhGYDBuTujEXO2At7JWcXHU',
+    appId: '1:470289897203:android:16638039c8f02cb02b0986',
+    messagingSenderId: '470289897203',
+    projectId: 'medex2-32db8',
+    storageBucket: 'medex2-32db8.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBFVS4oc-Qvw2O7u7e4oxajzbbfq_5ZvDs',
-    appId: '1:1024441459942:ios:04cc535989cd893f094727',
-    messagingSenderId: '1024441459942',
-    projectId: 'medex-b36ec',
-    storageBucket: 'medex-b36ec.firebasestorage.app',
+    apiKey: 'AIzaSyBhLJ0m9G8Z4mbnu7Qr-wROng2_lhiekaw',
+    appId: '1:470289897203:ios:9f7e431f6c5869232b0986',
+    messagingSenderId: '470289897203',
+    projectId: 'medex2-32db8',
+    storageBucket: 'medex2-32db8.firebasestorage.app',
     iosBundleId: 'com.josea.laboratorio3',
   );
+
 }
