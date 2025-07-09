@@ -27,6 +27,7 @@ class _AdminRConfirmadoState extends State<AdminRConfirmado> {
   final _cellphone =TextEditingController();
   final _password = TextEditingController();
   final _repassword = TextEditingController();
+  final _urlImage = TextEditingController();
 
   final FirebaseApi _firebaseApi = FirebaseApi();
 
@@ -49,7 +50,25 @@ class _AdminRConfirmadoState extends State<AdminRConfirmado> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    SizedBox(height: 16,), // espacio entre widgets
+                    TextFormField(
+                      style: const TextStyle(color: Colors.white),
+                      controller: _urlImage,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "URL de la imagen de perfil",
+                          prefixIcon: Icon(Icons.photo_camera_front_outlined,color: Colors.white,),
+                          labelStyle: const TextStyle(color: Colors.white),
+                          enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white,width: 2.0)
+                          )
 
+                      ),
+                      keyboardType: TextInputType.url,
+                    ), // Url de la imagen de perfil
                     SizedBox(height: 16,), // espacio entre widgets
                     TextFormField(
                       style: const TextStyle(color: Colors.white),
@@ -281,7 +300,7 @@ class _AdminRConfirmadoState extends State<AdminRConfirmado> {
       showMsg("Revise su conexion a internet");
     } else{
       var genre = (_genre == Genre.male) ? "Masculino":"Femenino";
-      var _user = UserAdmin(result, _name.text, _email.text, genre, _bornDate, _cellphone.text, "", "Administrador");
+      var _user = UserAdmin(result, _name.text, _email.text, genre, _bornDate, _cellphone.text, _urlImage.text, "Administrador");
       createUserIDB(_user);
 
     }

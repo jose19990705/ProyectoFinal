@@ -68,7 +68,7 @@ class _MyProfileTouristPageState extends State<MyProfileTouristPage> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/C_porfile.jpg',
+              'assets/images/Fondo_home.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -115,8 +115,8 @@ class _MyProfileTouristPageState extends State<MyProfileTouristPage> {
                     const SizedBox(height: 50),
                     const Center(
                       child: CircleAvatar(
-                        radius: 60,
-                        backgroundImage: AssetImage('assets/images/default_profile.jpg'),
+                        radius: 70,
+                        backgroundImage: AssetImage('assets/images/JTU.png'),
                       ),
                     ),
                     const SizedBox(height: 20),

@@ -34,7 +34,7 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/C_porfile.jpg',
+              'assets/images/Fondo_home.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -71,33 +71,48 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
                 final service = data['productsService'] ?? 'Sin servicio';
                 final rating = (data['rating'] ?? 0).toDouble();
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 50),
-                    Text(
-                      "Nombre: $name",
-                      style: const TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    Text(
-                      "Descripción: $description",
-                      style: const TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    Text(
-                      "Servicio: $service",
-                      style: const TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    Text(
-                      "Rating general: ${rating.toStringAsFixed(1)} ⭐",
-                      style: const TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      "Platos:",
-                      style: TextStyle(color: Colors.white, fontSize: 22),
-                    ),
-                    Expanded(
-                      child: FutureBuilder<List<Map<String, dynamic>>>(
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 50),
+                      Center(
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundImage: AssetImage('assets/images/JCH.png'),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Center(
+                        child: Text(
+                          "Nombre: $name",
+                          style: const TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          "Descripción: $description",
+                          style: const TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          "Servicio: $service",
+                          style: const TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          "Rating general: ${rating.toStringAsFixed(1)} ⭐",
+                          style: const TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        "Platos:",
+                        style: TextStyle(color: Colors.white, fontSize: 22),
+                      ),
+                      FutureBuilder<List<Map<String, dynamic>>>(
                         future: _foodListFuture,
                         builder: (context, foodSnapshot) {
                           if (foodSnapshot.connectionState == ConnectionState.waiting) {
@@ -105,11 +120,9 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
                           }
 
                           if (foodSnapshot.hasError) {
-                            return Center(
-                              child: Text(
-                                "Error al cargar los platos",
-                                style: TextStyle(color: Colors.white),
-                              ),
+                            return const Text(
+                              "Error al cargar los platos",
+                              style: TextStyle(color: Colors.white),
                             );
                           }
 
@@ -123,6 +136,8 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
                           }
 
                           return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: foods.length,
                             itemBuilder: (context, index) {
                               final food = foods[index];
@@ -130,14 +145,8 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
 
                               return Card(
                                 color: Colors.white70,
-
-                                //child: ListTile(
-                                //  title: Text(food['nombre'] ?? 'Sin nombre'),
-                                //  subtitle: Text("Precio: ${food['precio'] ?? '---'}\nDescripción: ${food['descripcion'] ?? ''}"),
-                                //),
                                 child: Row(
                                   children: [
-                                    // Imagen desde URL
                                     Container(
                                       width: 100,
                                       height: 100,
@@ -145,7 +154,9 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(8),
                                         child: Image.network(
-                                          food['imagenUrl'] ?? food['urlImage']?? '',
+
+                                          food['imagenUrl'] ?? food['urlImage'] ?? '',
+
                                           fit: BoxFit.cover,
                                           errorBuilder: (context, error, stackTrace) {
                                             return const Icon(Icons.broken_image, size: 50);
@@ -157,8 +168,6 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
                                         ),
                                       ),
                                     ),
-
-                                    // Información del producto
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -175,38 +184,38 @@ class _MyProfileShopkeeperPageState extends State<MyProfileShopkeeperPage> {
                                             const SizedBox(height: 4),
                                             Text("Precio: ${food['precio'] ?? '---'}"),
                                             Text("Descripción: ${food['descripcion'] ?? ''}"),
-                                            Text( "Rating: ${foodRating.toStringAsFixed(1)} ⭐"),
+
+                                            Text("Rating: ${foodRating.toStringAsFixed(1)} ⭐"),
                                           ],
                                         ),
                                       ),
                                     ),
                                   ],
 
+
                                 ),
-
-
                               );
                             },
                           );
                         },
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: _onTasteButtonClicked,
-                        child: const Text('Agregar plato'),
+                      const SizedBox(height: 20),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: _onTasteButtonClicked,
+                          child: const Text('Agregar plato'),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: _onSignOutButtonClicked,
-                        child: const Text("Cerrar sesión"),
+                      const SizedBox(height: 10),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: _onSignOutButtonClicked,
+                          child: const Text("Cerrar sesión"),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                  ],
+                      const SizedBox(height: 20),
+                    ],
+                  ),
                 );
               },
             ),
