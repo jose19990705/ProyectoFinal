@@ -37,9 +37,9 @@ class _HomeNavigationBarPageState extends State<HomeNavigationBarPage> {
       return 'Turista';
     }
     final AdminDoc =
-    await FirebaseFirestore.instance.collection('Admin').doc(uid).get();
+    await FirebaseFirestore.instance.collection('Administradores').doc(uid).get();
     if (AdminDoc.exists) {
-      return 'Admin';
+      return 'Administrador';
     }
     return 'Negociante';
   }
@@ -67,7 +67,7 @@ class _HomeNavigationBarPageState extends State<HomeNavigationBarPage> {
         if((snapshot.data!)=='Turista'){
           isTurista=true;
         }
-        if((snapshot.data!)=='Admin'){
+        if((snapshot.data!)=='Administrador'){
           isAdmin=true;
         }
 

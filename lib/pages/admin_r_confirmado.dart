@@ -67,7 +67,7 @@ class _AdminRConfirmadoState extends State<AdminRConfirmado> {
                           )
 
                       ),
-                      keyboardType: TextInputType.webSearch,
+                      keyboardType: TextInputType.url,
                     ), // Url de la imagen de perfil
                     SizedBox(height: 16,), // espacio entre widgets
                     TextFormField(
@@ -300,7 +300,7 @@ class _AdminRConfirmadoState extends State<AdminRConfirmado> {
       showMsg("Revise su conexion a internet");
     } else{
       var genre = (_genre == Genre.male) ? "Masculino":"Femenino";
-      var _user = UserAdmin(result, _name.text, _email.text, genre, _bornDate, _cellphone.text, _urlImage, "Administrador");
+      var _user = UserAdmin(result, _name.text, _email.text, genre, _bornDate, _cellphone.text, _urlImage.text, "Administrador");
       createUserIDB(_user);
 
     }
